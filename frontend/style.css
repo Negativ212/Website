@@ -1,0 +1,107 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #0d0d0d;
+    color: #f0f0f0;
+    scroll-behavior: smooth;
+}
+
+header {
+    height: 100vh;
+    background: url('https://via.placeholder.com/1920x1080') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 4em;
+    margin: 0;
+    text-shadow: 2px 2px 10px #000;
+}
+
+header p {
+    font-size: 1.5em;
+    margin-top: 20px;
+    text-shadow: 1px 1px 5px #000;
+}
+
+section {
+    padding: 80px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.story {
+    font-size: 1.2em;
+    line-height: 1.6em;
+}
+
+.characters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.character-card {
+    background: #1a1a1a;
+    padding: 20px;
+    width: 220px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.character-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.character-card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.character-card h3 {
+    margin: 15px 0 5px;
+}
+
+.character-card p {
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+footer {
+    background: #111;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.8);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    z-index: 1000;
+}
+
+nav a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ff5555;
+}
