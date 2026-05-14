@@ -2,58 +2,190 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Убить Некроманта</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Убить Некроманта | Фан-сайт (заглушка)</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <nav>
-        <a href="#story">История</a>
-        <a href="#characters">Персонажи</a>
-        <a href="#footer">Контакты</a>
+
+    <div class="mobile-nav-toggle" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav class="main-nav" id="mainNav">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="#">УБИТЬ<br><span>НЕКРОМАНТА</span></a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#news">Новости</a></li>
+                <li><a href="#world">Мир книги</a></li>
+                <li><a href="#characters">Персонажи</a></li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#forum">Форум</a></li>
+                <li><a href="#quotes">Цитаты</a></li>
+            </ul>
+            <div class="nav-search">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
     </nav>
 
-    <header>
-        <h1>Убить Некроманта</h1>
-        <p>Добро пожаловать в мрачный мир, где магия и тьма переплетаются</p>
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Убить Некроманта</h1>
+            <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <div class="hero-buttons">
+                <a href="#news" class="btn btn-primary">Читать новости</a>
+                <a href="#world" class="btn btn-secondary">Погрузиться в мир</a>
+            </div>
+        </div>
+        <div class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </div>
     </header>
 
-    <section id="story">
-        <h2>Основная история</h2>
-        <div class="story">
-            <p>
-                Здесь можно рассказать о мире книги, главных событиях и интригах. 
-                Например: "В мире, где магия управляет судьбами людей, некромант угрожает балансу, и только герой способен остановить его..."
-            </p>
-            <p>
-                Можно добавить несколько абзацев, чтобы постепенно раскрывать сюжет при прокрутке.
-            </p>
-        </div>
-    </section>
+    <main>
+        <section id="news" class="section news-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Последние новости</h2>
+                    <div class="section-line"></div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="news-grid" id="newsGrid"></div>
+                <div class="text-center">
+                    <button class="btn btn-outline" id="loadMoreNews">Загрузить ещё</button>
+                </div>
+            </div>
+        </section>
 
-    <section id="characters">
-        <h2>Персонажи</h2>
-        <div class="characters">
-            <div class="character-card">
-                <img src="https://via.placeholder.com/200x300" alt="Герой">
-                <h3>Герой</h3>
-                <p>Главный персонаж, который стремится остановить некроманта и спасти мир.</p>
+        <section id="world" class="section world-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Мир «Убить Некроманта»</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="world-content">
+                    <div class="world-text">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p><em>«Lorem ipsum dolor sit amet, consectetur adipiscing elit»</em> — sed do eiusmod.</p>
+                        <a href="#" class="read-more">Узнать больше <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="world-map">
+                        <div class="white-square" style="width:100%; height:250px;"></div>
+                        <span class="map-caption">Карта-заглушка (белый квадрат)</span>
+                    </div>
+                </div>
             </div>
-            <div class="character-card">
-                <img src="https://via.placeholder.com/200x300" alt="Некромант">
-                <h3>Некромант</h3>
-                <p>Темный маг, угрожающий миру. Его цели неизвестны, но сила велика.</p>
+        </section>
+
+        <section id="characters" class="section characters-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Ключевые персонажи</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="characters-grid" id="charactersGrid"></div>
             </div>
-            <div class="character-card">
-                <img src="https://via.placeholder.com/200x300" alt="Соратник">
-                <h3>Соратник</h3>
-                <p>Верный друг героя, обладающий уникальными способностями и знанием магии.</p>
+        </section>
+
+        <section id="gallery" class="section gallery-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Галерея фанарта</h2>
+                    <div class="section-line"></div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="gallery-grid" id="galleryGrid"></div>
+            </div>
+        </section>
+
+        <section id="forum" class="section forum-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Форум — последние темы</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="forum-list" id="forumTopics"></div>
+                <div class="text-center">
+                    <a href="#" class="btn btn-outline">Перейти на форум →</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="quotes" class="section quotes-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Памятные цитаты</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="quotes-slider">
+                    <div class="quote-card active">
+                        <p>«Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.»</p>
+                        <h4>— Lorem Ipsum</h4>
+                    </div>
+                    <div class="quote-card">
+                        <p>«Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.»</p>
+                        <h4>— Dolor Sit Amet</h4>
+                    </div>
+                    <div class="quote-card">
+                        <p>«Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.»</p>
+                        <h4>— Consectetur Adipiscing</h4>
+                    </div>
+                    <div class="quote-nav">
+                        <button id="prevQuote"><i class="fas fa-chevron-left"></i></button>
+                        <button id="nextQuote"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Убить Некроманта</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-reddit-alien"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Разделы</h4>
+                <ul>
+                    <li><a href="#news">Новости</a></li>
+                    <li><a href="#world">Мир книги</a></li>
+                    <li><a href="#characters">Персонажи</a></li>
+                    <li><a href="#gallery">Галерея</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Партнёры</h4>
+                <ul>
+                    <li><a href="#">Lorem Ipsum</a></li>
+                    <li><a href="#">Dolor Sit</a></li>
+                    <li><a href="#">Amet Consectetur</a></li>
+                </ul>
             </div>
         </div>
-    </section>
-
-    <footer id="footer">
-        <p>&copy; 2026 "Убить Некроманта". Все права защищены.</p>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Фан-сайт «Убить Некроманта» — демо-версия с текстом-заполнителем.</p>
+        </div>
     </footer>
+
+    <div id="newsModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
