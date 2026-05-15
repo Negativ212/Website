@@ -501,3 +501,53 @@ footer {
         font-size: 1.8rem;
     }
 }
+
+.main-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid #2a1a1a;
+}
+
+.nav-container {
+    position: relative;         /* важно для абсолютного позиционирования кнопки */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 12px 24px;
+}
+
+.mobile-nav-toggle {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 50%;                   /* привязываем к середине родителя */
+    transform: translateY(-50%); /* точное вертикальное центрирование */
+    z-index: 1100;
+    background: #aa2e2e;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+}
+
+/* На мобильных отображаем кнопку */
+@media (max-width: 900px) {
+    .mobile-nav-toggle {
+        display: block;
+    }
+    /* при этом скрываем обычное меню */
+    .nav-links {
+        display: none;
+        /* остальные стили без изменений */
+    }
+    .nav-links.active {
+        display: flex;
+    }
+}
