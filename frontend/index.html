@@ -87,7 +87,6 @@
                     </div>
                     <div class="world-map">
                         <div class="white-square" style="width:100%; height:250px;"></div>
-                        <span class="map-caption">Карта-заглушка (белый квадрат)</span>
                     </div>
                 </div>
             </div>
@@ -100,17 +99,27 @@
                     <div class="section-line"></div>
                     <p>Герои и злодеи, которые вершат судьбы мира</p>
                 </div>
-                <div class="character-carousel">
-                    <button class="carousel-btn prev-btn" id="prevCharacter"><i class="fas fa-chevron-left"></i></button>
-                    <div class="character-card-large">
-                        <div class="white-square character-image" style="height:300px;"></div>
-                        <h3 id="charName">Lorem Ipsum</h3>
-                        <p id="charRole"><strong>Dolor Sit Amet</strong></p>
-                        <p id="charDesc">Consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+
+                <div class="character-main">
+                    <div class="character-left">
+                        <h2 id="charName">Лоремиус</h2>
+                        <p id="charRole"><strong>Магистр Ордена</strong></p>
                     </div>
-                    <button class="carousel-btn next-btn" id="nextCharacter"><i class="fas fa-chevron-right"></i></button>
+                    <div class="character-center">
+                        <div class="white-square char-portrait" style="width:200px; height:200px; border-radius:50%; margin:0 auto;"></div>
+                        <button id="showDetailsBtn" class="btn btn-outline" style="margin-top: 20px;">Узнать о персонаже подробнее →</button>
+                        <div id="characterDetails" class="character-details hidden">
+                            <p id="charFullDesc">Здесь будет подробное описание персонажа после нажатия на кнопку.</p>
+                        </div>
+                    </div>
+                    <div class="character-right">
+                        <div class="right-header">
+                            <h4>Другие персонажи</h4>
+                            <p id="rightCurrentName">Сейчас: Лоремиус</p>
+                        </div>
+                        <div class="character-thumbnails" id="thumbnailsList"></div>
+                    </div>
                 </div>
-                <div class="carousel-dots" id="charDots"></div>
             </div>
         </section>
 

@@ -201,45 +201,58 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 let currentCharIndex = 0;
+let detailsVisible = false;
+
 function updateCharacterCard(index) {
     const char = charactersData[index];
-    const nameEl = document.getElementById('charName');
-    const roleEl = document.getElementById('charRole');
-    const descEl = document.getElementById('charDesc');
-    if (nameEl) nameEl.innerText = char.name;
-    if (roleEl) roleEl.innerHTML = `<strong>${char.role}</strong>`;
-    if (descEl) descEl.innerText = char.desc;
-    const dots = document.querySelectorAll('.dot');
-    dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
+    document.getElementById('charName').innerText = char.name;
+    document.getElementById('charRole').innerHTML = `<strong>${char.role}</strong>`;
+    document.getElementById('rightCurrentName').innerHTML = `Сейчас: ${char.name}`;
+    if (document.getElementById('characterDetails') && !detailsVisible) {
+        document.getElementById('characterDetails').classList.add('hidden');
+    }
+    document.querySelectorAll('.thumbnail-item').forEach((item, i) => {
+        if (i === index) item.classList.add('active');
+        else item.classList.remove('active');
     });
 }
-function initCharacterCarousel() {
-    const prevBtn = document.getElementById('prevCharacter');
-    const nextBtn = document.getElementById('nextCharacter');
-    if (!prevBtn || !nextBtn) return;
-    const dotsContainer = document.getElementById('charDots');
-    if (dotsContainer) {
-        dotsContainer.innerHTML = '';
-        charactersData.forEach((_, idx) => {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            if (idx === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => {
-                currentCharIndex = idx;
-                updateCharacterCard(currentCharIndex);
-            });
-            dotsContainer.appendChild(dot);
+
+function renderThumbnails() {
+    const container = document.getElementById('thumbnailsList');
+    if (!container) return;
+    container.innerHTML = charactersData.map((char, idx) => `
+        <div class="thumbnail-item" data-index="${idx}">
+            <div class="thumbnail-avatar"></div>
+            <div class="thumbnail-info">
+                <strong>${char.name}</strong>
+                <span>${char.role}</span>
+            </div>
+        </div>
+    `).join('');
+    document.querySelectorAll('.thumbnail-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const idx = parseInt(item.getAttribute('data-index'));
+            currentCharIndex = idx;
+            updateCharacterCard(currentCharIndex);
+            if (document.getElementById('characterDetails')) {
+                document.getElementById('characterDetails').classList.add('hidden');
+                detailsVisible = false;
+            }
         });
-    }
-    updateCharacterCard(0);
-    prevBtn.addEventListener('click', () => {
-        currentCharIndex = (currentCharIndex - 1 + charactersData.length) % charactersData.length;
-        updateCharacterCard(currentCharIndex);
     });
-    nextBtn.addEventListener('click', () => {
-        currentCharIndex = (currentCharIndex + 1) % charactersData.length;
-        updateCharacterCard(currentCharIndex);
+    updateCharacterCard(currentCharIndex);
+}
+
+function initDetailsButton() {
+    const btn = document.getElementById('showDetailsBtn');
+    if (!btn) return;
+    const detailsDiv = document.getElementById('characterDetails');
+    btn.addEventListener('click', () => {
+        const char = charactersData[currentCharIndex];
+        const fullDesc = char.desc + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+        document.getElementById('charFullDesc').innerText = fullDesc;
+        detailsDiv.classList.toggle('hidden');
+        detailsVisible = !detailsDiv.classList.contains('hidden');
     });
 }
 
@@ -249,7 +262,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('galleryGrid')) renderGallery();
     if (document.getElementById('forumTopics')) renderForum(4);
     if (document.getElementById('allTopicsList')) renderFullForumList();
-    if (document.getElementById('prevCharacter')) initCharacterCarousel();
+    if (document.getElementById('thumbnailsList')) {
+        renderThumbnails();
+        initDetailsButton();
+    }
     const scrollDown = document.querySelector('.scroll-down');
     if (scrollDown) {
         scrollDown.addEventListener('click', () => {
