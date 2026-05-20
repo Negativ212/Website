@@ -28,21 +28,25 @@ const newsData = [
         fullText: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
     }
 ];
-//вот это короче будет изменять возможно, если будет лень перенесу в css
 
 const charactersData = [
-    { name: "Lorem Ipsum", role: "Dolor Sit Amet", desc: "Consectetur adipiscing elit, sed do eiusmod tempor incididunt." },
-    { name: "Ut Enim", role: "Ad Minim Veniam", desc: "Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea." },
-    { name: "Duis Aute", role: "Irure Dolor", desc: "In reprehenderit in voluptate velit esse cillum dolore eu fugiat." },
-    { name: "Excepteur Sint", role: "Occaecat", desc: "Cupidatat non proident, sunt in culpa qui officia deserunt." }
+    { name: "Лоремиус", role: "Магистр Ордена", desc: "Мудрый наставник, потерявший веру, но обретший надежду в битве с некромантами." },
+    { name: "Айден", role: "Охотник на нежить", desc: "Бесстрашный воин с загадочным прошлым. Его клинок никогда не промахивается." },
+    { name: "Моргана", role: "Призрачная леди", desc: "Полукровка, владеющая древними ритуалами. Между светом и тьмой." },
+    { name: "Велиар", role: "Тёмный лорд", desc: "Главный антагонист, некромант, мечтающий подчинить себе весь мир." }
 ];
 
-const galleryImagesCount = 6; 
+const galleryImagesCount = 6;
+
 const forumTopics = [
-    { title: "Lorem ipsum dolor sit amet", author: "Consectetur", replies: 47, lastPost: "сегодня" },
-    { title: "Adipiscing elit sed do", author: "Eiusmod", replies: 23, lastPost: "вчера" },
-    { title: "Tempor incididunt ut labore", author: "Dolore", replies: 112, lastPost: "2 часа назад" },
-    { title: "Magna aliqua ut enim", author: "Minim", replies: 9, lastPost: "5 дней назад" }
+    { title: "Теория: кто на самом деле стоит за восстанием мертвецов?", author: "Лор, лор", replies: 47, lastPost: "сегодня" },
+    { title: "Любимый персонаж и почему", author: "Фанбой", replies: 23, lastPost: "вчера" },
+    { title: "Обсуждение первой главы (спойлеры)", author: "Книголюб", replies: 112, lastPost: "2 часа назад" },
+    { title: "Фан-арт конкурс — приём работ", author: "Модератор", replies: 9, lastPost: "5 дней назад" },
+    { title: "Нужна ли экранизация?", author: "Киноман", replies: 56, lastPost: "3 дня назад" },
+    { title: "Ваши теории о финале", author: "Теоретик", replies: 34, lastPost: "вчера" },
+    { title: "Какая магия сильнее?", author: "Маг", replies: 78, lastPost: "6 часов назад" },
+    { title: "Обмен фан-артами", author: "Художник", replies: 201, lastPost: "1 час назад" }
 ];
 
 function renderNews(limit = 3) {
@@ -69,18 +73,6 @@ function renderNews(limit = 3) {
     });
 }
 
-function renderCharacters() {
-    const container = document.getElementById('charactersGrid');
-    if (!container) return;
-    container.innerHTML = charactersData.map(ch => `
-        <div class="character-card">
-            <div class="white-square" style="height:280px;"></div>
-            <h3>${ch.name}</h3>
-            <p><strong>${ch.role}</strong><br>${ch.desc}</p>
-        </div>
-    `).join('');
-}
-
 function renderGallery() {
     const container = document.getElementById('galleryGrid');
     if (!container) return;
@@ -91,8 +83,20 @@ function renderGallery() {
     container.innerHTML = html;
 }
 
-function renderForum() {
+function renderForum(limit = 4) {
     const container = document.getElementById('forumTopics');
+    if (!container) return;
+    const topicsToShow = forumTopics.slice(0, limit);
+    container.innerHTML = topicsToShow.map(topic => `
+        <div class="forum-topic">
+            <div class="topic-title"><a href="#">${topic.title}</a></div>
+            <div class="topic-meta">${topic.author} | Ответов: ${topic.replies} | ${topic.lastPost}</div>
+        </div>
+    `).join('');
+}
+
+function renderFullForumList() {
+    const container = document.getElementById('allTopicsList');
     if (!container) return;
     container.innerHTML = forumTopics.map(topic => `
         <div class="forum-topic">
@@ -105,10 +109,46 @@ function renderForum() {
 function showModal(title, content) {
     const modal = document.getElementById('newsModal');
     const modalBody = document.getElementById('modalBody');
+    if (!modal) return;
     modalBody.innerHTML = `<h2>${title}</h2><p>${content}</p>`;
     modal.style.display = 'flex';
-    document.querySelector('.modal-close').onclick = () => modal.style.display = 'none';
+    const closeBtn = document.querySelector('.modal-close');
+    if (closeBtn) closeBtn.onclick = () => modal.style.display = 'none';
     window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+}
+
+function applyTheme(theme) {
+    const body = document.body;
+    const select = document.getElementById('themeSelect');
+    if (theme === 'system') {
+        const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        body.className = darkMode ? 'theme-dark' : 'theme-light';
+        if (select) select.value = 'system';
+    } else {
+        body.className = `theme-${theme}`;
+        if (select) select.value = theme;
+    }
+    localStorage.setItem('siteTheme', theme);
+}
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('siteTheme');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    } else {
+        applyTheme('system');
+    }
+    const select = document.getElementById('themeSelect');
+    if (select) {
+        select.addEventListener('change', (e) => {
+            applyTheme(e.target.value);
+        });
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (localStorage.getItem('siteTheme') === 'system') {
+            applyTheme('system');
+        }
+    });
 }
 
 let currentQuote = 0;
@@ -118,11 +158,13 @@ function showQuote(index) {
     quotes.forEach((q, i) => q.classList.toggle('active', i === index));
 }
 if (quotes.length) {
-    document.getElementById('prevQuote')?.addEventListener('click', () => {
+    const prevBtn = document.getElementById('prevQuote');
+    const nextBtn = document.getElementById('nextQuote');
+    if (prevBtn) prevBtn.addEventListener('click', () => {
         currentQuote = (currentQuote - 1 + quotes.length) % quotes.length;
         showQuote(currentQuote);
     });
-    document.getElementById('nextQuote')?.addEventListener('click', () => {
+    if (nextBtn) nextBtn.addEventListener('click', () => {
         currentQuote = (currentQuote + 1) % quotes.length;
         showQuote(currentQuote);
     });
@@ -158,12 +200,61 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    renderNews(3);
-    renderCharacters();
-    renderGallery();
-    renderForum();
-    document.querySelector('.scroll-down')?.addEventListener('click', () => {
-        document.getElementById('news')?.scrollIntoView({ behavior: 'smooth' });
+let currentCharIndex = 0;
+function updateCharacterCard(index) {
+    const char = charactersData[index];
+    const nameEl = document.getElementById('charName');
+    const roleEl = document.getElementById('charRole');
+    const descEl = document.getElementById('charDesc');
+    if (nameEl) nameEl.innerText = char.name;
+    if (roleEl) roleEl.innerHTML = `<strong>${char.role}</strong>`;
+    if (descEl) descEl.innerText = char.desc;
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
     });
+}
+function initCharacterCarousel() {
+    const prevBtn = document.getElementById('prevCharacter');
+    const nextBtn = document.getElementById('nextCharacter');
+    if (!prevBtn || !nextBtn) return;
+    const dotsContainer = document.getElementById('charDots');
+    if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        charactersData.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (idx === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                currentCharIndex = idx;
+                updateCharacterCard(currentCharIndex);
+            });
+            dotsContainer.appendChild(dot);
+        });
+    }
+    updateCharacterCard(0);
+    prevBtn.addEventListener('click', () => {
+        currentCharIndex = (currentCharIndex - 1 + charactersData.length) % charactersData.length;
+        updateCharacterCard(currentCharIndex);
+    });
+    nextBtn.addEventListener('click', () => {
+        currentCharIndex = (currentCharIndex + 1) % charactersData.length;
+        updateCharacterCard(currentCharIndex);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    if (document.getElementById('newsGrid')) renderNews(3);
+    if (document.getElementById('galleryGrid')) renderGallery();
+    if (document.getElementById('forumTopics')) renderForum(4);
+    if (document.getElementById('allTopicsList')) renderFullForumList();
+    if (document.getElementById('prevCharacter')) initCharacterCarousel();
+    const scrollDown = document.querySelector('.scroll-down');
+    if (scrollDown) {
+        scrollDown.addEventListener('click', () => {
+            const newsSection = document.getElementById('news');
+            if (newsSection) newsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
 });
