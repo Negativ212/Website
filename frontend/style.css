@@ -711,3 +711,17 @@ footer {
         overflow-x: hidden;
     }
 }
+.location-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.location-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.quiz-container select {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+.api-quote-box {
+    transition: all 0.2s;
+}

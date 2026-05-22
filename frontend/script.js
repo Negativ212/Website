@@ -274,3 +274,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+const quizForm = document.getElementById('quizForm');
+if (quizForm) {
+    quizForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let q1 = parseInt(e.target.q1.value);
+        let q2 = parseInt(e.target.q2.value);
+        let q3 = parseInt(e.target.q3.value);
+        let q4 = parseInt(e.target.q4.value);
+        let total = q1 + q2 + q3 + q4;
+        let char = '', desc = '';
+        if (total <= 6) { char = 'Айден, Охотник на нежить'; desc = 'Ты смел и решителен, не боишься смотреть смерти в лицо.'; }
+        else if (total <= 10) { char = 'Лоремиус, Магистр Ордена'; desc = 'Ты мудр и рассудителен, предпочитаешь знания грубой силе.'; }
+        else if (total <= 14) { char = 'Моргана, Призрачная леди'; desc = 'Ты загадочен(на) и гибок, танцуешь между светом и тьмой.'; }
+        else { char = 'Велиар, Тёмный лорд'; desc = 'Ты жаждешь власти и не остановишься ни перед чем.'; }
+        document.getElementById('resultCharacter').innerText = char;
+        document.getElementById('resultDesc').innerText = desc;
+        document.getElementById('quizResult').style.display = 'block';
+    });
+}
+
+const fetchQuoteBtn = document.getElementById('fetchQuoteBtn');
+if (fetchQuoteBtn) {
+    const quoteText = document.getElementById('quoteText');
+    const quoteAuthor = document.getElementById('quoteAuthor');
+    const errorDiv = document.getElementById('errorMessage');
+    
+    async function fetchRandomQuote() {
+        try {
+            errorDiv.style.display = 'none';
+            quoteText.innerText = 'Загрузка...';
+            
+            const response = await fetch('quotes.json');
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            
+            const data = await response.json();
+            const randomIndex = Math.floor(Math.random() * data.quotes.length);
+            const randomQuote = data.quotes[randomIndex];
+            
+            quoteText.innerText = `«${randomQuote.content}»`;
+        } catch (err) {
+            console.error(err);
+            errorDiv.style.display = 'block';
+            errorDiv.innerText = 'Ошибка загрузки цитаты. Проверьте файл quotes.json';
+            quoteText.innerText = 'Ошибка';
+            quoteAuthor.innerText = '— ...';
+        }
+    }
+    
+    fetchQuoteBtn.addEventListener('click', fetchRandomQuote);
+    fetchRandomQuote();
+}

@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Все темы форума | Убить Некроманта</title>
+    <title>Об авторе | Убить Некроманта</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <nav class="main-nav">
         <div class="nav-container">
-            <div class="logo">
-                <a href="index.html">УБИТЬ<br><span>НЕКРОМАНТА</span></a>
-            </div>
+            <div class="logo"><a href="index.html">УБИТЬ<br><span>НЕКРОМАНТА</span></a></div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html#news">Новости</a></li>
                 <li><a href="index.html#world">Мир книги</a></li>
@@ -28,21 +26,10 @@
                 <li><a href="topics.html">Все темы</a></li>
             </ul>
             <div class="nav-right">
-                <div class="theme-switcher">
-                    <select id="themeSelect">
-                        <option value="system">Системная</option>
-                        <option value="dark">Тёмная</option>
-                        <option value="light">Светлая</option>
-                        <option value="blue">Синяя</option>
-                    </select>
-                </div>
-                <div class="nav-search">
-                    <i class="fas fa-search"></i>
-                </div>
+                <div class="theme-switcher"><select id="themeSelect"><option value="system">Системная</option><option value="dark">Тёмная</option><option value="light">Светлая</option><option value="blue">Синяя</option></select></div>
+                <div class="nav-search"><i class="fas fa-search"></i></div>
             </div>
-            <div class="mobile-nav-toggle" id="mobileToggle">
-                <i class="fas fa-bars"></i>
-            </div>
+            <div class="mobile-nav-toggle" id="mobileToggle"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
 
@@ -50,13 +37,26 @@
         <section class="section" style="padding-top: 120px;">
             <div class="container">
                 <div class="section-header">
-                    <h2>Все темы форума</h2>
+                    <h2>Об авторе</h2>
                     <div class="section-line"></div>
-                    <p>Обсуждения, теории, фан-арт и новости сообщества</p>
+                    <p>Творец вселенной «Убить Некроманта»</p>
                 </div>
-                <div class="forum-list full-forum-list" id="allTopicsList"></div>
-                <div class="text-center">
-                    <a href="index.html" class="btn btn-outline">← Вернуться на главную</a>
+                <div class="author-content" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+                    <div class="author-photo" style="flex: 1; text-align: center;">
+                        <div class="white-square" style="width: 250px; height: 250px; border-radius: 50%; margin: 0 auto;"></div>
+                    </div>
+                    <div class="author-bio" style="flex: 2;">
+                        <h3>Макс Далин</h3>
+                        <p>автор книг «Убить некроманта», «Лунный бархат», «Берег Стикса», изданных в «Крылове». Пишет статьи для собственного литклуба на СИ и МОСКе.</p>
+                        <p>Фотографии свои не показывает: «Своего рода суеверие — такое чувство, что будет писаться, пока я Голос, а не Физиономия. Я понимаю, что выглядит смешным пунктом — ну это уж у каждого свои слабости».</p> <br>
+                        <p><b>И несколько слов Макса о себе:</b></p>
+                        <p>«Родился и живу в Питере. Семидесятого года. Образование педагогическое и психологическое. Попробовал журналистики — бросил, не выношу писать на заказ или под диктовку. Считаю литературу главным в жизни делом. Литературный абсолют, с моей точки зрения — Чехов. Фантастика, сказка — декорация для правды.»</p>
+                        <div class="social-links" style="margin-top: 20px;">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-goodreads"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -80,13 +80,6 @@
                     <li><a href="index.html#world">Мир книги</a></li>
                     <li><a href="index.html#characters">Персонажи</a></li>
                     <li><a href="index.html#gallery">Галерея</a></li>
-                    <li><a href="index.html#forum">Форум</a></li>
-                    <li><a href="index.html#quotes">Цитаты</a></li>
-                    <li><a href="about.html">Об авторе</a></li>
-                    <li><a href="map.html">Карта мира</a></li>
-                    <li><a href="quiz.html">Тест</a></li>
-                    <li><a href="quotes-api.html">Цитаты API</a></li>
-                    <li><a href="topics.html">Все темы</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -102,7 +95,6 @@
             <p>&copy; 2026 Фан-сайт «Убить Некроманта» — некоммерческий проект</p>
         </div>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
