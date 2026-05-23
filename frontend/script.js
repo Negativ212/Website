@@ -151,26 +151,6 @@ function initTheme() {
     });
 }
 
-let currentQuote = 0;
-const quotes = document.querySelectorAll('.quote-card');
-function showQuote(index) {
-    if (!quotes.length) return;
-    quotes.forEach((q, i) => q.classList.toggle('active', i === index));
-}
-if (quotes.length) {
-    const prevBtn = document.getElementById('prevQuote');
-    const nextBtn = document.getElementById('nextQuote');
-    if (prevBtn) prevBtn.addEventListener('click', () => {
-        currentQuote = (currentQuote - 1 + quotes.length) % quotes.length;
-        showQuote(currentQuote);
-    });
-    if (nextBtn) nextBtn.addEventListener('click', () => {
-        currentQuote = (currentQuote + 1) % quotes.length;
-        showQuote(currentQuote);
-    });
-    showQuote(0);
-}
-
 const toggle = document.getElementById('mobileToggle');
 const navLinks = document.getElementById('navLinks');
 if (toggle) {
@@ -295,34 +275,93 @@ if (quizForm) {
     });
 }
 
-const fetchQuoteBtn = document.getElementById('fetchQuoteBtn');
-if (fetchQuoteBtn) {
-    const quoteText = document.getElementById('quoteText');
-    const quoteAuthor = document.getElementById('quoteAuthor');
-    const errorDiv = document.getElementById('errorMessage');
-    
-    async function fetchRandomQuote() {
-        try {
-            errorDiv.style.display = 'none';
-            quoteText.innerText = 'Загрузка...';
-            
-            const response = await fetch('quotes.json');
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            
-            const data = await response.json();
-            const randomIndex = Math.floor(Math.random() * data.quotes.length);
-            const randomQuote = data.quotes[randomIndex];
-            
-            quoteText.innerText = `«${randomQuote.content}»`;
-        } catch (err) {
-            console.error(err);
-            errorDiv.style.display = 'block';
-            errorDiv.innerText = 'Ошибка загрузки цитаты. Проверьте файл quotes.json';
-            quoteText.innerText = 'Ошибка';
-            quoteAuthor.innerText = '— ...';
+class QuoteManager {
+    constructor() {
+        this.localBtn = document.getElementById('localQuoteBtn');
+        this.externalBtn = document.getElementById('externalQuoteBtn');
+        this.quoteText = document.getElementById('quoteText');
+        this.errorDiv = document.getElementById('errorMessage');
+        this.localQuotesCache = null;
+        
+        if (this.localBtn && this.externalBtn && this.quoteText) {
+            this.localBtn.addEventListener('click', () => this.displayLocalQuote());
+            this.externalBtn.addEventListener('click', () => this.fetchExternalQuote());
+            this.displayLocalQuote();
         }
     }
     
-    fetchQuoteBtn.addEventListener('click', fetchRandomQuote);
-    fetchRandomQuote();
+    async loadLocalQuotes() {
+        if (this.localQuotesCache !== null) return this.localQuotesCache;
+        try {
+            const response = await fetch('quotes.json');
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+            let quotesArray = null;
+            if (data.quotes && Array.isArray(data.quotes)) {
+                quotesArray = data.quotes;
+            } else if (Array.isArray(data)) {
+                quotesArray = data;
+            } else {
+                throw new Error('Неизвестный формат');
+            }
+            this.localQuotesCache = quotesArray.map(item => {
+                if (typeof item === 'string') return item;
+                if (item.content) return item.content;
+                if (item.text) return item.text;
+                return String(item);
+            }).filter(text => text && text.length > 0);
+            if (this.localQuotesCache.length === 0) throw new Error('Нет цитат');
+            return this.localQuotesCache;
+        } catch (err) {
+            console.error(err);
+            if (this.errorDiv) {
+                this.errorDiv.style.display = 'block';
+                this.errorDiv.innerText = 'Ошибка загрузки локальных цитат. Проверьте quotes.json.';
+            }
+            return [];
+        }
+    }
+    
+    async displayLocalQuote() {
+        try {
+            if (this.errorDiv) this.errorDiv.style.display = 'none';
+            this.quoteText.innerText = 'Загрузка...';
+            const quotes = await this.loadLocalQuotes();
+            if (!quotes.length) {
+                this.quoteText.innerText = 'Нет доступных цитат';
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            this.quoteText.innerText = `«${quotes[randomIndex]}»`;
+        } catch (err) {
+            console.error(err);
+            if (this.errorDiv) {
+                this.errorDiv.style.display = 'block';
+                this.errorDiv.innerText = 'Ошибка при показе цитаты';
+            }
+            this.quoteText.innerText = 'Ошибка';
+        }
+    }
+    
+    async fetchExternalQuote() {
+        try {
+            if (this.errorDiv) this.errorDiv.style.display = 'none';
+            this.quoteText.innerText = 'Загрузка...';
+            const response = await fetch('https://dummyjson.com/quotes/random');
+            if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+            const data = await response.json();
+            this.quoteText.innerText = `«${data.quote}»`;
+        } catch (err) {
+            console.error(err);
+            if (this.errorDiv) {
+                this.errorDiv.style.display = 'block';
+                this.errorDiv.innerText = 'Ошибка загрузки из сети. Проверьте соединение.';
+            }
+            this.quoteText.innerText = 'Ошибка';
+        }
+    }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    new QuoteManager();
+});
