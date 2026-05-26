@@ -4,39 +4,65 @@ const newsData = [
         title: "Lorem ipsum dolor sit amet",
         date: "14 мая 2026",
         excerpt: "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        fullText: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        fullText: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        image: "https://i.imgur.com/placeholder1.jpg"
     },
     {
         id: 2,
         title: "Sed do eiusmod tempor",
         date: "10 мая 2026",
         excerpt: "Incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
-        fullText: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        fullText: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        image: "https://i.imgur.com/placeholder2.jpg"
     },
     {
         id: 3,
         title: "Duis aute irure dolor",
         date: "5 мая 2026",
         excerpt: "In reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        fullText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        fullText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        image: "https://i.imgur.com/placeholder3.jpg"
     },
     {
         id: 4,
         title: "Excepteur sint occaecat",
         date: "28 апреля 2026",
         excerpt: "Cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        fullText: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+        fullText: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+        image: "https://i.imgur.com/placeholder4.jpg"
     }
 ];
 
 const charactersData = [
-    { name: "Лоремиус", role: "Магистр Ордена", desc: "Мудрый наставник, потерявший веру, но обретший надежду в битве с некромантами." },
-    { name: "Айден", role: "Охотник на нежить", desc: "Бесстрашный воин с загадочным прошлым. Его клинок никогда не промахивается." },
-    { name: "Моргана", role: "Призрачная леди", desc: "Полукровка, владеющая древними ритуалами. Между светом и тьмой." },
-    { name: "Велиар", role: "Тёмный лорд", desc: "Главный антагонист, некромант, мечтающий подчинить себе весь мир." }
+    { name: "Дольф", role: "Король Междугорья, коронованный некромант", desc: "Жестокий, прагматичный правитель, чья изуродованная даром внешность и циничный взгляд на мир объясняются тяжелой судьбой." },
+    { name: "Оскар", role: "Князь Сумерек", desc: "Четырехсотлетний вампир, который служит Дольфу не только из-за зависимости от его «драгоценной» крови, но и по искренней многолетней привязанности." },
+    { name: "Магдала", role: "Королева Перелесья", desc: "Холодная, расчетливая «ледяная леди», чей острый ум и железная воля сделали ее идеальной партнершей и единственной настоящей любовью Дольфа." },
+    { name: "Людвиг", role: "Старший брат и антипод Дольфа", desc: "Красивый, благородный и добрый наследный принц, который из-за своей слабости и жестокости по отношению к брату в итоге проигрывает в борьбе за власть." },
+    { name: "Король Гуго Милосердный", role: "Бывший король Междугорья", desc: "Добрый, но недальновидный отец Дольфа. Слепо верил в рыцарские идеалы и религиозные заповеди, закрывая глаза на дворцовые интриги." },
+    { name: "Нэд", role: "Первая любовь Дольфа и паж при дворе", desc: "Был казнен отцом и братом Дольфа за их связь. Его трагическая гибель стала переломным моментом, окончательно сформировавшим мрачную личность будущего короля." },
+    { name: "Бернард", role: "Верный призрак и первый вассал Дольфа", desc: "При жизни был искусным шпионом и советником, а после смерти продолжает служить королю как незаменимый информатор, следящий за порядком среди гвардейцев." }
 ];
 
-const galleryImagesCount = 6;
+const portraitImages = [
+    "https://i.ibb.co/qMqJ0HXX/1779789167.png", 
+    "https://i.ibb.co/4nSkQVhR/1779789062.png",
+    "https://i.ibb.co/fGCNhMJB/1779789068.png",
+    "https://i.ibb.co/VpkW3Z9W/1779789074.png",
+    "https://i.ibb.co/bMZ7KDP4/1779789668.png",
+    "https://i.ibb.co/DfswPZMX/1779789788.png",
+    "https://i.ibb.co/YKkWvcC/1779789953.png",
+];
+
+const thumbnailImages = portraitImages;
+
+const galleryImages = [
+    "https://i.imgur.com/арт1.jpg",
+    "https://i.imgur.com/арт2.jpg",
+    "https://i.imgur.com/арт3.jpg",
+    "https://i.imgur.com/арт4.jpg",
+    "https://i.imgur.com/арт5.jpg",
+    "https://i.imgur.com/арт6.jpg"
+];
 
 const forumTopics = [
     { title: "Теория: кто на самом деле стоит за восстанием мертвецов?", author: "Лор, лор", replies: 47, lastPost: "сегодня" },
@@ -55,7 +81,7 @@ function renderNews(limit = 3) {
     const newsToShow = newsData.slice(0, limit);
     grid.innerHTML = newsToShow.map(news => `
         <div class="news-card" data-id="${news.id}">
-            <div class="white-square news-img" style="height:180px;"></div>
+            <img class="news-img" src="${news.image}" alt="${news.title}" style="height:260px; width:100%; object-fit:cover;">
             <div class="news-content">
                 <div class="news-date">${news.date}</div>
                 <h3 class="news-title">${news.title}</h3>
@@ -76,11 +102,11 @@ function renderNews(limit = 3) {
 function renderGallery() {
     const container = document.getElementById('galleryGrid');
     if (!container) return;
-    let html = '';
-    for (let i = 0; i < galleryImagesCount; i++) {
-        html += `<div class="gallery-item"><div class="white-square" style="height:200px;"></div></div>`;
-    }
-    container.innerHTML = html;
+    container.innerHTML = galleryImages.map(url => `
+        <div class="gallery-item">
+            <img src="${url}" alt="Фанарт" style="width:100%; height:300px; object-fit:cover;">
+        </div>
+    `).join('');
 }
 
 function renderForum(limit = 4) {
@@ -187,7 +213,7 @@ function updateCharacterCard(index) {
     const char = charactersData[index];
     document.getElementById('charName').innerText = char.name;
     document.getElementById('charRole').innerHTML = `<strong>${char.role}</strong>`;
-    document.getElementById('rightCurrentName').innerHTML = `Сейчас: ${char.name}`;
+    document.getElementById('charPortrait').src = portraitImages[index];
     if (document.getElementById('characterDetails') && !detailsVisible) {
         document.getElementById('characterDetails').classList.add('hidden');
     }
@@ -202,7 +228,7 @@ function renderThumbnails() {
     if (!container) return;
     container.innerHTML = charactersData.map((char, idx) => `
         <div class="thumbnail-item" data-index="${idx}">
-            <div class="thumbnail-avatar"></div>
+            <img class="thumbnail-avatar" src="${thumbnailImages[idx]}" alt="${char.name}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; margin-right:12px;">
             <div class="thumbnail-info">
                 <strong>${char.name}</strong>
                 <span>${char.role}</span>
@@ -229,8 +255,7 @@ function initDetailsButton() {
     const detailsDiv = document.getElementById('characterDetails');
     btn.addEventListener('click', () => {
         const char = charactersData[currentCharIndex];
-        const fullDesc = char.desc + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-        document.getElementById('charFullDesc').innerText = fullDesc;
+        document.getElementById('charFullDesc').innerText = char.desc;
         detailsDiv.classList.toggle('hidden');
         detailsVisible = !detailsDiv.classList.contains('hidden');
     });
