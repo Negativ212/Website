@@ -3,10 +3,10 @@
     --bg-secondary: #131313;
     --bg-card: #111;
     --bg-header: rgba(0, 0, 0, 0.95);
-    --text-primary: #e0e0e0;
-    --text-secondary: #aaa;
-    --accent: #aa2e2e;
-    --accent-hover: #7a2020;
+    --text-primary: #ffffff;
+    --text-secondary: #bbbbbb;
+    --accent: #e63946;
+    --accent-hover: #c1121f;
     --border: rgba(255, 255, 255, 0.05);
     --border-card: #2a2a2a;
     --hero-bg: #1a1a1a;
@@ -61,6 +61,17 @@ body {
     transition: background-color 0.2s, color 0.2s;
     overflow-x: hidden;
     max-width: 100%;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
 h1, h2, h3, h4, .logo {
@@ -234,7 +245,6 @@ body.theme-blue .hero-overlay {
 .hero-content h1 {
     font-size: 4.5rem;
     font-weight: 900;
-    text-shadow: 0 0 20px rgba(0,0,0,0.8);
     margin-bottom: 20px;
     color: var(--text-primary);
 }
@@ -344,7 +354,7 @@ body.theme-blue .hero-overlay {
 
 .news-date {
     font-size: 0.8rem;
-    color: var(--accent);
+    color: #f0a0a0;
     text-transform: uppercase;
 }
 
@@ -373,7 +383,7 @@ body.theme-blue .hero-overlay {
     font-size: 1.05rem;
 }
 .read-more {
-    color: var(--accent);
+    color: #ff8c8c;
     font-weight: 600;
     border-bottom: 1px dashed;
 }
@@ -399,7 +409,7 @@ body.theme-blue .hero-overlay {
 }
 .character-left h2 {
     font-size: 2rem;
-    color: var(--accent);
+    color: #ff8c8c;
     margin-bottom: 8px;
 }
 .character-left p {
@@ -456,9 +466,9 @@ body.theme-blue .hero-overlay {
     padding-bottom: 10px;
     margin-bottom: 15px;
 }
-.right-header h4 {
+.right-header h3 {
     font-size: 1.2rem;
-    color: var(--accent);
+    color: #ffb3b3;
 }
 .right-header p {
     font-size: 0.85rem;
@@ -608,7 +618,7 @@ footer {
 }
 .footer-col h3, .footer-col h4 {
     margin-bottom: 16px;
-    color: var(--accent);
+    color: #ffb3b3;
 }
 .footer-col ul {
     list-style: none;
@@ -790,4 +800,28 @@ footer {
     text-align: center;
     margin-top: 20px;
     display: none;
+}
+
+body.theme-light .news-date {
+    color: #b33;
+}
+body.theme-light #charName,
+body.theme-light .read-more {
+    color: #c0392b;
+}
+body.theme-light .right-header h3,
+body.theme-light .footer-col h3,
+body.theme-light .footer-col h4 {
+    color: #c0392b;
+}
+
+body.theme-blue .news-date,
+body.theme-blue .read-more,
+body.theme-blue #charName {
+    color: #a8ffd6;
+}
+body.theme-blue .right-header h3,
+body.theme-blue .footer-col h3,
+body.theme-blue .footer-col h4 {
+    color: #a8ffd6;
 }

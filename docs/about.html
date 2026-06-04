@@ -25,7 +25,15 @@
                 <li><a href="topics.html">Все темы</a></li>
             </ul>
             <div class="nav-right">
-                <div class="theme-switcher"><select id="themeSelect"><option value="system">Системная</option><option value="dark">Тёмная</option><option value="light">Светлая</option><option value="blue">Синяя</option></select></div>
+                <div class="theme-switcher">
+                    <label for="themeSelect" class="visually-hidden">Выбор темы</label>
+                    <select id="themeSelect">
+                        <option value="system">Системная</option>
+                        <option value="dark">Тёмная</option>
+                        <option value="light">Светлая</option>
+                        <option value="blue">Синяя</option>
+                    </select>
+                </div>
                 <div class="nav-search"><i class="fas fa-search"></i></div>
             </div>
             <div class="mobile-nav-toggle" id="mobileToggle"><i class="fas fa-bars"></i></div>
@@ -51,9 +59,9 @@
                         <p><b>И несколько слов Макса о себе:</b></p>
                         <p>«Родился и живу в Питере. Семидесятого года. Образование педагогическое и психологическое. Попробовал журналистики — бросил, не выношу писать на заказ или под диктовку. Считаю литературу главным в жизни делом. Литературный абсолют, с моей точки зрения — Чехов. Фантастика, сказка — декорация для правды.»</p>
                         <div class="social-links" style="margin-top: 20px;">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-goodreads"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Goodreads"><i class="fab fa-goodreads"></i></a>
                         </div>
                     </div>
                 </div>
@@ -67,13 +75,13 @@
                 <h3>Убить Некроманта</h3>
                 <p>Фан-сайт, посвящённый культовой вселенной. Присоединяйтесь к сообществу!</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-discord"></i></a>
-                    <a href="#"><i class="fab fa-reddit-alien"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" aria-label="Reddit"><i class="fab fa-reddit-alien"></i></a>
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Разделы</h4>
+                <h3>Разделы</h3>
                 <ul>
                     <li><a href="index.html#news">Новости</a></li>
                     <li><a href="index.html#world">Мир книги</a></li>
@@ -82,7 +90,7 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Партнёры</h4>
+                <h3>Партнёры</h3>
                 <ul>
                     <li><a href="#">Lorem Ipsum</a></li>
                     <li><a href="#">Dolor Sit</a></li>
