@@ -15,11 +15,11 @@
                 <a href="#">УБИТЬ<br><span>НЕКРОМАНТА</span></a>
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html#news">Новости</a></li>
-                <li><a href="index.html#world">Мир книги</a></li>
-                <li><a href="index.html#characters">Персонажи</a></li>
-                <li><a href="index.html#gallery">Галерея</a></li>
-                <li><a href="index.html#forum">Форум</a></li>
+                <li><a href="#news">Новости</a></li>
+                <li><a href="#world">Мир книги</a></li>
+                <li><a href="#characters">Персонажи</a></li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#forum">Форум</a></li>
                 <li><a href="about.html">Об авторе</a></li>
                 <li><a href="map.html">Карта мира</a></li>
                 <li><a href="quiz.html">Тест</a></li>
@@ -35,9 +35,6 @@
                         <option value="light">Светлая</option>
                         <option value="blue">Синяя</option>
                     </select>
-                </div>
-                <div class="nav-search">
-                    <i class="fas fa-search"></i>
                 </div>
             </div>
             <div class="mobile-nav-toggle" id="mobileToggle">
@@ -130,9 +127,16 @@
                 <div class="section-header">
                     <h2>Галерея фанарта</h2>
                     <div class="section-line"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p>Добавляйте свои изображения — они сохранятся в вашем браузере</p>
                 </div>
                 <div class="gallery-grid" id="galleryGrid"></div>
+                <div class="add-to-gallery" style="margin-top: 40px; text-align: center;">
+                    <h3>Добавить своё изображение</h3>
+                    <div class="add-form">
+                        <input type="text" id="newImageUrl" placeholder="Введите URL изображения" style="padding: 10px; width: 300px; margin-right: 10px; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-card); border-radius: 8px;">
+                        <button id="addImageBtn" class="btn btn-primary">Добавить в галерею</button>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -141,10 +145,19 @@
                 <div class="section-header">
                     <h2>Форум — последние темы</h2>
                     <div class="section-line"></div>
+                    <p>Создавайте новые обсуждения — они сохранятся локально</p>
                 </div>
                 <div class="forum-list" id="forumTopics"></div>
-                <div class="text-center">
-                    <a href="topics.html" class="btn btn-outline">Все темы →</a>
+                <div class="add-topic" style="margin-top: 30px; text-align: center;">
+                    <h3>Создать новую тему</h3>
+                    <div class="add-form" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                        <input type="text" id="newTopicTitle" placeholder="Название темы" style="padding: 10px; width: 250px; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-card); border-radius: 8px;">
+                        <input type="text" id="newTopicAuthor" placeholder="Ваше имя" style="padding: 10px; width: 150px; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-card); border-radius: 8px;">
+                        <button id="addTopicBtn" class="btn btn-primary">Создать тему</button>
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 20px;">
+                    <button id="resetToDefaultBtn" class="btn btn-secondary" style="background: #aa2e2e;">Сбросить всё к исходному состоянию</button>
                 </div>
             </div>
         </section>
@@ -188,6 +201,18 @@
         <div class="modal-content">
             <span class="modal-close">&times;</span>
             <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <div id="topicModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <span class="modal-close" id="topicModalClose">&times;</span>
+            <h2 id="topicModalTitle"></h2>
+            <div id="topicMessagesList" style="max-height: 400px; overflow-y: auto; margin: 20px 0;"></div>
+            <div class="add-message-form">
+                <textarea id="newMessageText" rows="3" placeholder="Ваше сообщение..." style="width: 100%; padding: 10px; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-card); border-radius: 8px;"></textarea>
+                <button id="sendMessageBtn" class="btn btn-primary" style="margin-top: 10px;">Отправить</button>
+            </div>
         </div>
     </div>
 

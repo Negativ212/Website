@@ -1,0 +1,56 @@
+{
+  "galleryImages": [],
+  "forumTopics": [],
+  "newsData": [
+    {
+      "id": 1,
+      "title": "Lorem ipsum dolor sit amet",
+      "date": "14 мая 2026",
+      "excerpt": "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "fullText": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "image": "https://placehold.co/800x400/2c2c2c/ffffff?text=Новость+1"
+    },
+    {
+      "id": 2,
+      "title": "Sed do eiusmod tempor",
+      "date": "10 мая 2026",
+      "excerpt": "Incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
+      "fullText": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "https://placehold.co/800x400/2c2c2c/ffffff?text=Новость+2"
+    },
+    {
+      "id": 3,
+      "title": "Duis aute irure dolor",
+      "date": "5 мая 2026",
+      "excerpt": "In reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "image": "https://placehold.co/800x400/2c2c2c/ffffff?text=Новость+3"
+    },
+    {
+      "id": 4,
+      "title": "Excepteur sint occaecat",
+      "date": "28 апреля 2026",
+      "excerpt": "Cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "fullText": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+      "image": "https://placehold.co/800x400/2c2c2c/ffffff?text=Новость+4"
+    }
+  ],
+  "charactersData": [
+    { "name": "Дольф", "role": "Король Междугорья, коронованный некромант", "desc": "Жестокий, прагматичный правитель, чья изуродованная даром внешность и циничный взгляд на мир объясняются тяжелой судьбой." },
+    { "name": "Оскар", "role": "Князь Сумерек", "desc": "Четырехсотлетний вампир, который служит Дольфу не только из-за зависимости от его «драгоценной» крови, но и по искренней многолетней привязанности." },
+    { "name": "Магдала", "role": "Королева Перелесья", "desc": "Холодная, расчетливая «ледяная леди», чей острый ум и железная воля сделали ее идеальной партнершей и единственной настоящей любовью Дольфа." },
+    { "name": "Людвиг", "role": "Старший брат и антипод Дольфа", "desc": "Красивый, благородный и добрый наследный принц, который из-за своей слабости и жестокости по отношению к брату в итоге проигрывает в борьбе за власть." },
+    { "name": "Король Гуго Милосердный", "role": "Бывший король Междугорья", "desc": "Добрый, но недальновидный отец Дольфа. Слепо верил в рыцарские идеалы и религиозные заповеди, закрывая глаза на дворцовые интриги." },
+    { "name": "Нэд", "role": "Первая любовь Дольфа и паж при дворе", "desc": "Был казнен отцом и братом Дольфа за их связь. Его трагическая гибель стала переломным моментом, окончательно сформировавшим мрачную личность будущего короля." },
+    { "name": "Бернард", "role": "Верный призрак и первый вассал Дольфа", "desc": "При жизни был искусным шпионом и советником, а после смерти продолжает служить королю как незаменимый информатор, следящий за порядком среди гвардейцев." }
+  ],
+  "portraitImages": [
+    "https://i.ibb.co/qMqJ0HXX/1779789167.png",
+    "https://i.ibb.co/4nSkQVhR/1779789062.png",
+    "https://i.ibb.co/fGCNhMJB/1779789068.png",
+    "https://i.ibb.co/VpkW3Z9W/1779789074.png",
+    "https://i.ibb.co/bMZ7KDP4/1779789668.png",
+    "https://i.ibb.co/DfswPZMX/1779789788.png",
+    "https://i.ibb.co/YKkWvcC/1779789953.png"
+  ]
+}

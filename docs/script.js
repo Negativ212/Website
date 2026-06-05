@@ -1,91 +1,88 @@
-const newsData = [
-    {
-        id: 1,
-        title: "Lorem ipsum dolor sit amet",
-        date: "14 мая 2026",
-        excerpt: "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        fullText: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        image: "https://i.imgur.com/placeholder1.jpg"
-    },
-    {
-        id: 2,
-        title: "Sed do eiusmod tempor",
-        date: "10 мая 2026",
-        excerpt: "Incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
-        fullText: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        image: "https://i.imgur.com/placeholder2.jpg"
-    },
-    {
-        id: 3,
-        title: "Duis aute irure dolor",
-        date: "5 мая 2026",
-        excerpt: "In reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        fullText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        image: "https://i.imgur.com/placeholder3.jpg"
-    },
-    {
-        id: 4,
-        title: "Excepteur sint occaecat",
-        date: "28 апреля 2026",
-        excerpt: "Cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        fullText: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-        image: "https://i.imgur.com/placeholder4.jpg"
+let DEFAULT_DATA = { galleryImages: [], forumTopics: [] };
+let STATIC_DATA = { newsData: [], charactersData: [], portraitImages: [] };
+
+let currentGallery = [];
+let currentForumTopics = [];
+let loadedNewsCount = 3;
+let currentCharIndex = 0;
+let detailsVisible = false;
+let currentTopicId = null;
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
+async function loadDefaultData() {
+    try {
+        const response = await fetch('defaultData.json');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        DEFAULT_DATA.galleryImages = data.galleryImages || [];
+        DEFAULT_DATA.forumTopics = data.forumTopics || [];
+        STATIC_DATA.newsData = data.newsData || [];
+        STATIC_DATA.charactersData = data.charactersData || [];
+        STATIC_DATA.portraitImages = data.portraitImages || [];
+        initApp();
+    } catch (err) {
+        console.error('Ошибка загрузки defaultData.json:', err);
+        document.body.innerHTML = '<div style="padding: 50px; text-align: center; color: red;">Ошибка загрузки данных. Убедитесь, что файл defaultData.json находится в той же папке.</div>';
     }
-];
+}
 
-const charactersData = [
-    { name: "Дольф", role: "Король Междугорья, коронованный некромант", desc: "Жестокий, прагматичный правитель, чья изуродованная даром внешность и циничный взгляд на мир объясняются тяжелой судьбой." },
-    { name: "Оскар", role: "Князь Сумерек", desc: "Четырехсотлетний вампир, который служит Дольфу не только из-за зависимости от его «драгоценной» крови, но и по искренней многолетней привязанности." },
-    { name: "Магдала", role: "Королева Перелесья", desc: "Холодная, расчетливая «ледяная леди», чей острый ум и железная воля сделали ее идеальной партнершей и единственной настоящей любовью Дольфа." },
-    { name: "Людвиг", role: "Старший брат и антипод Дольфа", desc: "Красивый, благородный и добрый наследный принц, который из-за своей слабости и жестокости по отношению к брату в итоге проигрывает в борьбе за власть." },
-    { name: "Король Гуго Милосердный", role: "Бывший король Междугорья", desc: "Добрый, но недальновидный отец Дольфа. Слепо верил в рыцарские идеалы и религиозные заповеди, закрывая глаза на дворцовые интриги." },
-    { name: "Нэд", role: "Первая любовь Дольфа и паж при дворе", desc: "Был казнен отцом и братом Дольфа за их связь. Его трагическая гибель стала переломным моментом, окончательно сформировавшим мрачную личность будущего короля." },
-    { name: "Бернард", role: "Верный призрак и первый вассал Дольфа", desc: "При жизни был искусным шпионом и советником, а после смерти продолжает служить королю как незаменимый информатор, следящий за порядком среди гвардейцев." }
-];
+function loadUserData() {
+    const savedGallery = localStorage.getItem('fanartGallery');
+    const savedForum = localStorage.getItem('forumTopics');
+    
+    if (savedGallery) {
+        currentGallery = JSON.parse(savedGallery);
+    } else {
+        currentGallery = [];
+    }
+    
+    if (savedForum) {
+        currentForumTopics = JSON.parse(savedForum);
+    } else {
+        currentForumTopics = [];
+    }
+}
 
-const portraitImages = [
-    "https://i.ibb.co/qMqJ0HXX/1779789167.png", 
-    "https://i.ibb.co/4nSkQVhR/1779789062.png",
-    "https://i.ibb.co/fGCNhMJB/1779789068.png",
-    "https://i.ibb.co/VpkW3Z9W/1779789074.png",
-    "https://i.ibb.co/bMZ7KDP4/1779789668.png",
-    "https://i.ibb.co/DfswPZMX/1779789788.png",
-    "https://i.ibb.co/YKkWvcC/1779789953.png",
-];
+function saveGallery() {
+    localStorage.setItem('fanartGallery', JSON.stringify(currentGallery));
+}
 
-const thumbnailImages = portraitImages;
+function saveForum() {
+    localStorage.setItem('forumTopics', JSON.stringify(currentForumTopics));
+}
 
-const galleryImages = [
-    "https://i.imgur.com/арт1.jpg",
-    "https://i.imgur.com/арт2.jpg",
-    "https://i.imgur.com/арт3.jpg",
-    "https://i.imgur.com/арт4.jpg",
-    "https://i.imgur.com/арт5.jpg",
-    "https://i.imgur.com/арт6.jpg"
-];
-
-const forumTopics = [
-    { title: "Теория: кто на самом деле стоит за восстанием мертвецов?", author: "Лор, лор", replies: 47, lastPost: "сегодня" },
-    { title: "Любимый персонаж и почему", author: "Фанбой", replies: 23, lastPost: "вчера" },
-    { title: "Обсуждение первой главы (спойлеры)", author: "Книголюб", replies: 112, lastPost: "2 часа назад" },
-    { title: "Фан-арт конкурс — приём работ", author: "Модератор", replies: 9, lastPost: "5 дней назад" },
-    { title: "Нужна ли экранизация?", author: "Киноман", replies: 56, lastPost: "3 дня назад" },
-    { title: "Ваши теории о финале", author: "Теоретик", replies: 34, lastPost: "вчера" },
-    { title: "Какая магия сильнее?", author: "Маг", replies: 78, lastPost: "6 часов назад" },
-    { title: "Обмен фан-артами", author: "Художник", replies: 201, lastPost: "1 час назад" }
-];
+function resetToDefault() {
+    if (confirm('Сбросить все пользовательские данные? Галерея и темы форума станут пустыми. Это действие нельзя отменить.')) {
+        currentGallery = [];
+        currentForumTopics = [];
+        localStorage.removeItem('fanartGallery');
+        localStorage.removeItem('forumTopics');
+        renderGallery();
+        renderForum(4);
+        alert('Данные сброшены. Теперь галерея и форум пусты.');
+    }
+}
 
 function renderNews(limit = 3) {
     const grid = document.getElementById('newsGrid');
     if (!grid) return;
-    const newsToShow = newsData.slice(0, limit);
+    const newsToShow = STATIC_DATA.newsData.slice(0, limit);
     grid.innerHTML = newsToShow.map(news => `
         <div class="news-card" data-id="${news.id}">
-            <img class="news-img" src="${news.image}" alt="${news.title}" style="height:260px; width:100%; object-fit:cover;">
+            <img class="news-img" src="${news.image}" alt="${escapeHtml(news.title)}" style="height:260px; width:100%; object-fit:cover;">
             <div class="news-content">
-                <div class="news-date">${news.date}</div>
-                <h3 class="news-title">${news.title}</h3>
-                <p class="news-excerpt">${news.excerpt}</p>
+                <div class="news-date">${escapeHtml(news.date)}</div>
+                <h3 class="news-title">${escapeHtml(news.title)}</h3>
+                <p class="news-excerpt">${escapeHtml(news.excerpt)}</p>
             </div>
         </div>
     `).join('');
@@ -93,8 +90,8 @@ function renderNews(limit = 3) {
     document.querySelectorAll('.news-card').forEach(card => {
         card.addEventListener('click', () => {
             const id = parseInt(card.getAttribute('data-id'));
-            const news = newsData.find(n => n.id === id);
-            if (news) showModal(news.title, news.fullText);
+            const news = STATIC_DATA.newsData.find(n => n.id === id);
+            if (news) showModal(escapeHtml(news.title), escapeHtml(news.fullText));
         });
     });
 }
@@ -102,9 +99,13 @@ function renderNews(limit = 3) {
 function renderGallery() {
     const container = document.getElementById('galleryGrid');
     if (!container) return;
-    container.innerHTML = galleryImages.map(url => `
+    if (currentGallery.length === 0) {
+        container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-secondary);">Пока нет изображений. Добавьте первое!</div>';
+        return;
+    }
+    container.innerHTML = currentGallery.map(url => `
         <div class="gallery-item">
-            <img src="${url}" alt="Фанарт" style="width:100%; height:300px; object-fit:cover;">
+            <img src="${escapeHtml(url)}" alt="Фанарт" style="width:100%; height:300px; object-fit:cover;">
         </div>
     `).join('');
 }
@@ -112,24 +113,107 @@ function renderGallery() {
 function renderForum(limit = 4) {
     const container = document.getElementById('forumTopics');
     if (!container) return;
-    const topicsToShow = forumTopics.slice(0, limit);
+    if (currentForumTopics.length === 0) {
+        container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-secondary);">Пока нет тем. Создайте первую!</div>';
+        return;
+    }
+    const topicsToShow = currentForumTopics.slice(0, limit);
     container.innerHTML = topicsToShow.map(topic => `
-        <div class="forum-topic">
-            <div class="topic-title"><a href="#">${topic.title}</a></div>
-            <div class="topic-meta">${topic.author} | Ответов: ${topic.replies} | ${topic.lastPost}</div>
+        <div class="forum-topic" data-topic-id="${topic.id}">
+            <div class="topic-title"><a href="#" class="topic-link">${escapeHtml(topic.title)}</a></div>
+            <div class="topic-meta">${escapeHtml(topic.author)} | Ответов: ${topic.messages ? topic.messages.length : 0} | ${escapeHtml(topic.lastPost)}</div>
+        </div>
+    `).join('');
+    
+    document.querySelectorAll('.forum-topic .topic-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const topicDiv = link.closest('.forum-topic');
+            const id = parseInt(topicDiv.getAttribute('data-topic-id'));
+            openTopic(id);
+        });
+    });
+}
+
+function openTopic(topicId) {
+    const topic = currentForumTopics.find(t => t.id === topicId);
+    if (!topic) return;
+    currentTopicId = topicId;
+    document.getElementById('topicModalTitle').innerText = topic.title;
+    renderTopicMessages(topicId);
+    const modal = document.getElementById('topicModal');
+    modal.style.display = 'flex';
+}
+
+function renderTopicMessages(topicId) {
+    const topic = currentForumTopics.find(t => t.id === topicId);
+    const container = document.getElementById('topicMessagesList');
+    if (!container) return;
+    if (!topic.messages || topic.messages.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color: var(--text-secondary);">Пока нет сообщений. Будьте первым!</p>';
+        return;
+    }
+    container.innerHTML = topic.messages.map(msg => `
+        <div style="background: var(--bg-card); border-radius: 12px; padding: 12px; margin-bottom: 12px; border-left: 3px solid var(--accent);">
+            <strong>${escapeHtml(msg.author)}</strong> <span style="font-size:0.8rem; color:var(--text-secondary);">${escapeHtml(msg.date)}</span>
+            <p style="margin-top: 8px;">${escapeHtml(msg.text)}</p>
         </div>
     `).join('');
 }
 
-function renderFullForumList() {
-    const container = document.getElementById('allTopicsList');
-    if (!container) return;
-    container.innerHTML = forumTopics.map(topic => `
-        <div class="forum-topic">
-            <div class="topic-title"><a href="#">${topic.title}</a></div>
-            <div class="topic-meta">${topic.author} | Ответов: ${topic.replies} | ${topic.lastPost}</div>
-        </div>
-    `).join('');
+function addMessageToTopic(topicId, author, text) {
+    if (!text || text.trim() === '') {
+        alert('Введите сообщение');
+        return;
+    }
+    if (!author || author.trim() === '') author = 'Аноним';
+    const topic = currentForumTopics.find(t => t.id === topicId);
+    if (!topic) return;
+    if (!topic.messages) topic.messages = [];
+    topic.messages.push({
+        author: author.trim(),
+        text: text.trim(),
+        date: new Date().toLocaleString()
+    });
+    topic.replies = topic.messages.length;
+    topic.lastPost = 'только что';
+    saveForum();
+    renderForum(4);
+    renderTopicMessages(topicId);
+    document.getElementById('newMessageText').value = '';
+}
+
+function addForumTopic(title, author) {
+    if (!title || title.trim() === '') {
+        alert('Введите название темы');
+        return;
+    }
+    if (!author || author.trim() === '') author = 'Аноним';
+    const newId = Date.now();
+    const newTopic = {
+        id: newId,
+        title: title.trim(),
+        author: author.trim(),
+        replies: 0,
+        lastPost: 'только что',
+        messages: []
+    };
+    currentForumTopics.unshift(newTopic);
+    saveForum();
+    renderForum(4);
+    document.getElementById('newTopicTitle').value = '';
+    document.getElementById('newTopicAuthor').value = '';
+}
+
+function addGalleryImage(url) {
+    if (!url || url.trim() === '') {
+        alert('Введите URL изображения');
+        return;
+    }
+    currentGallery.push(url.trim());
+    saveGallery();
+    renderGallery();
+    document.getElementById('newImageUrl').value = '';
 }
 
 function showModal(title, content) {
@@ -138,7 +222,7 @@ function showModal(title, content) {
     if (!modal) return;
     modalBody.innerHTML = `<h2>${title}</h2><p>${content}</p>`;
     modal.style.display = 'flex';
-    const closeBtn = document.querySelector('.modal-close');
+    const closeBtn = document.querySelector('#newsModal .modal-close');
     if (closeBtn) closeBtn.onclick = () => modal.style.display = 'none';
     window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
 }
@@ -177,43 +261,12 @@ function initTheme() {
     });
 }
 
-const toggle = document.getElementById('mobileToggle');
-const navLinks = document.getElementById('navLinks');
-if (toggle) {
-    toggle.addEventListener('click', () => navLinks.classList.toggle('active'));
-}
-
-let loadedNewsCount = 3;
-const loadBtn = document.getElementById('loadMoreNews');
-if (loadBtn) {
-    loadBtn.addEventListener('click', () => {
-        loadedNewsCount = Math.min(loadedNewsCount + 2, newsData.length);
-        renderNews(loadedNewsCount);
-        if (loadedNewsCount >= newsData.length) loadBtn.style.display = 'none';
-    });
-}
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href === "#") return;
-        const target = document.querySelector(href);
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth' });
-            if (navLinks?.classList.contains('active')) navLinks.classList.remove('active');
-        }
-    });
-});
-
-let currentCharIndex = 0;
-let detailsVisible = false;
-
 function updateCharacterCard(index) {
-    const char = charactersData[index];
+    const char = STATIC_DATA.charactersData[index];
+    if (!char) return;
     document.getElementById('charName').innerText = char.name;
-    document.getElementById('charRole').innerHTML = `<strong>${char.role}</strong>`;
-    document.getElementById('charPortrait').src = portraitImages[index];
+    document.getElementById('charRole').innerHTML = `<strong>${escapeHtml(char.role)}</strong>`;
+    document.getElementById('charPortrait').src = STATIC_DATA.portraitImages[index];
     if (document.getElementById('characterDetails') && !detailsVisible) {
         document.getElementById('characterDetails').classList.add('hidden');
     }
@@ -226,12 +279,12 @@ function updateCharacterCard(index) {
 function renderThumbnails() {
     const container = document.getElementById('thumbnailsList');
     if (!container) return;
-    container.innerHTML = charactersData.map((char, idx) => `
+    container.innerHTML = STATIC_DATA.charactersData.map((char, idx) => `
         <div class="thumbnail-item" data-index="${idx}">
-            <img class="thumbnail-avatar" src="${thumbnailImages[idx]}" alt="${char.name}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; margin-right:12px;">
+            <img class="thumbnail-avatar" src="${STATIC_DATA.portraitImages[idx]}" alt="${escapeHtml(char.name)}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; margin-right:12px;">
             <div class="thumbnail-info">
-                <strong>${char.name}</strong>
-                <span>${char.role}</span>
+                <strong>${escapeHtml(char.name)}</strong>
+                <span>${escapeHtml(char.role)}</span>
             </div>
         </div>
     `).join('');
@@ -246,7 +299,7 @@ function renderThumbnails() {
             }
         });
     });
-    updateCharacterCard(currentCharIndex);
+    if (STATIC_DATA.charactersData.length > 0) updateCharacterCard(currentCharIndex);
 }
 
 function initDetailsButton() {
@@ -254,23 +307,86 @@ function initDetailsButton() {
     if (!btn) return;
     const detailsDiv = document.getElementById('characterDetails');
     btn.addEventListener('click', () => {
-        const char = charactersData[currentCharIndex];
-        document.getElementById('charFullDesc').innerText = char.desc;
+        const char = STATIC_DATA.charactersData[currentCharIndex];
+        if (char) {
+            document.getElementById('charFullDesc').innerText = char.desc;
+        }
         detailsDiv.classList.toggle('hidden');
         detailsVisible = !detailsDiv.classList.contains('hidden');
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function initAddButtons() {
+    const addImageBtn = document.getElementById('addImageBtn');
+    if (addImageBtn) {
+        addImageBtn.addEventListener('click', () => {
+            const urlInput = document.getElementById('newImageUrl');
+            addGalleryImage(urlInput.value);
+        });
+    }
+    
+    const addTopicBtn = document.getElementById('addTopicBtn');
+    if (addTopicBtn) {
+        addTopicBtn.addEventListener('click', () => {
+            const titleInput = document.getElementById('newTopicTitle');
+            const authorInput = document.getElementById('newTopicAuthor');
+            addForumTopic(titleInput.value, authorInput.value);
+        });
+    }
+    
+    const resetBtn = document.getElementById('resetToDefaultBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetToDefault);
+    }
+    
+    const sendMsgBtn = document.getElementById('sendMessageBtn');
+    if (sendMsgBtn) {
+        sendMsgBtn.addEventListener('click', () => {
+            const msgText = document.getElementById('newMessageText');
+            addMessageToTopic(currentTopicId, 'Пользователь', msgText.value);
+        });
+    }
+    
+    const topicModalClose = document.getElementById('topicModalClose');
+    if (topicModalClose) {
+        topicModalClose.onclick = () => {
+            document.getElementById('topicModal').style.display = 'none';
+        };
+    }
+    
+    window.onclick = (e) => {
+        const topicModal = document.getElementById('topicModal');
+        if (e.target === topicModal) topicModal.style.display = 'none';
+    };
+}
+
+function initApp() {
+    loadUserData();
     initTheme();
-    if (document.getElementById('newsGrid')) renderNews(3);
-    if (document.getElementById('galleryGrid')) renderGallery();
-    if (document.getElementById('forumTopics')) renderForum(4);
-    if (document.getElementById('allTopicsList')) renderFullForumList();
+    renderNews(3);
+    renderGallery();
+    renderForum(4);
     if (document.getElementById('thumbnailsList')) {
         renderThumbnails();
         initDetailsButton();
     }
+    initAddButtons();
+    
+    const toggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (toggle) {
+        toggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+    }
+    
+    const loadBtn = document.getElementById('loadMoreNews');
+    if (loadBtn) {
+        loadBtn.addEventListener('click', () => {
+            loadedNewsCount = Math.min(loadedNewsCount + 2, STATIC_DATA.newsData.length);
+            renderNews(loadedNewsCount);
+            if (loadedNewsCount >= STATIC_DATA.newsData.length) loadBtn.style.display = 'none';
+        });
+    }
+    
     const scrollDown = document.querySelector('.scroll-down');
     if (scrollDown) {
         scrollDown.addEventListener('click', () => {
@@ -278,7 +394,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (newsSection) newsSection.scrollIntoView({ behavior: 'smooth' });
         });
     }
-});
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === "#") return;
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+                if (navLinks?.classList.contains('active')) navLinks.classList.remove('active');
+            }
+        });
+    });
+}
+
+loadDefaultData();
 
 const quizForm = document.getElementById('quizForm');
 if (quizForm) {
@@ -387,6 +518,8 @@ class QuoteManager {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    new QuoteManager();
-});
+if (document.querySelector('.quotes-api-section')) {
+    document.addEventListener('DOMContentLoaded', () => {
+        new QuoteManager();
+    });
+}
