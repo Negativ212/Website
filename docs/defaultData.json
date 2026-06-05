@@ -45,12 +45,12 @@
     { "name": "Бернард", "role": "Верный призрак и первый вассал Дольфа", "desc": "При жизни был искусным шпионом и советником, а после смерти продолжает служить королю как незаменимый информатор, следящий за порядком среди гвардейцев." }
   ],
   "portraitImages": [
-    "https://i.ibb.co/qMqJ0HXX/1779789167.png",
-    "https://i.ibb.co/4nSkQVhR/1779789062.png",
-    "https://i.ibb.co/fGCNhMJB/1779789068.png",
-    "https://i.ibb.co/VpkW3Z9W/1779789074.png",
-    "https://i.ibb.co/bMZ7KDP4/1779789668.png",
-    "https://i.ibb.co/DfswPZMX/1779789788.png",
-    "https://i.ibb.co/YKkWvcC/1779789953.png"
+    "https://cdn.jsdelivr.net/gh/Negativ212/Website/image/Dolf.png",
+    "https://cdn.jsdelivr.net/gh/Negativ212/Website/image/Oscar.png",
+    "https://cdn.jsdelivr.net/gh/Negativ212/Website/image/Magdala.png",
+    "https://cdn.jsdelivr.net/gh/Negativ212/Website/image/Ludvig.png",
+    "https://cdn.jsdelivr.net/gh/Negativ212/Website/image/King.png",
+    "https://cdn.jsdelivr.net/gh/Negativ212/Website/image/Ned.png",
+    "https://cdn.jsdelivr.net/gh/Negativ212/Website/image/Bernard.png"
   ]
 }
