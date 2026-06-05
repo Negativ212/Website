@@ -643,6 +643,7 @@ footer {
     color: var(--text-secondary);
 }
 
+/* Modal base styles */
 .modal {
     display: none;
     position: fixed;
@@ -671,6 +672,27 @@ footer {
     font-size: 28px;
     cursor: pointer;
     color: var(--accent);
+}
+
+/* Стили для модального окна темы форума — панель ввода всегда снизу внутри окна */
+#topicModal .modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    max-width: 700px;
+    padding: 20px;
+}
+
+#topicModal #topicMessagesList {
+    flex: 1;
+    overflow-y: auto;
+    margin: 15px 0;
+    padding-right: 10px;
+}
+
+#topicModal .add-message-form {
+    flex-shrink: 0;
+    margin-top: 10px;
 }
 
 @media (max-width: 900px) {
@@ -712,21 +734,30 @@ footer {
     }
     .character-left {
         text-align: center;
+        margin-bottom: 20px;
+    }
+    .character-center {
+        order: 1;
+        margin-bottom: 30px;
     }
     .character-right {
         width: 100%;
+        order: 2;
+        padding: 15px;
     }
     .character-thumbnails {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
     }
     .thumbnail-item {
-        width: calc(50% - 12px);
+        width: 100%;
+        flex-direction: row;
+        padding: 12px;
     }
     .character-details {
         max-width: 100%;
         overflow-x: hidden;
+        padding: 15px;
     }
 }
 
@@ -736,14 +767,48 @@ footer {
         height: 200px !important;
     }
     .thumbnail-avatar {
-        width: 40px !important;
-        height: 40px !important;
+        width: 50px !important;
+        height: 50px !important;
     }
     .news-img {
         height: 180px !important;
     }
     .gallery-item img {
         height: 180px !important;
+    }
+    .thumbnail-info strong {
+        font-size: 0.9rem;
+    }
+    .thumbnail-info span {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .char-portrait {
+        width: 160px !important;
+        height: 160px !important;
+    }
+    .character-right {
+        padding: 10px;
+    }
+    .thumbnail-item {
+        padding: 10px;
+        gap: 10px;
+    }
+    .thumbnail-avatar {
+        width: 45px !important;
+        height: 45px !important;
+    }
+    .thumbnail-info strong {
+        font-size: 0.85rem;
+    }
+    .thumbnail-info span {
+        font-size: 0.7rem;
+    }
+    .character-details {
+        padding: 12px;
+        font-size: 0.85rem;
     }
 }
 

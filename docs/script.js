@@ -342,8 +342,7 @@ function initAddButtons() {
     const sendMsgBtn = document.getElementById('sendMessageBtn');
     if (sendMsgBtn) {
         sendMsgBtn.addEventListener('click', () => {
-            const msgText = document.getElementById('newMessageText');
-            addMessageToTopic(currentTopicId, 'Пользователь', msgText.value);
+            addMessageToTopic(currentTopicId, 'Пользователь', document.getElementById('newMessageText').value);
         });
     }
     
