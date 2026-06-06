@@ -522,3 +522,132 @@ if (document.querySelector('.quotes-api-section')) {
         new QuoteManager();
     });
 }
+(function() {
+    const mapContainer = document.getElementById('interactiveMap');
+    if (!mapContainer) return;
+    const panContent = document.getElementById('panContent');
+    const mapImage = document.getElementById('mapImage');
+    const markersContainer = document.getElementById('mapMarkers');
+    let scale = 1;
+    let translateX = 0, translateY = 0;
+    let isDragging = false;
+    let startX, startY;
+    let currentMarker = null;
+    function clampTranslate() {
+        const rect = mapContainer.getBoundingClientRect();
+        const imgRect = mapImage.getBoundingClientRect();
+        const maxX = Math.max(0, (imgRect.width * scale - rect.width) / 2);
+        const maxY = Math.max(0, (imgRect.height * scale - rect.height) / 2);
+        translateX = Math.min(maxX, Math.max(-maxX, translateX));
+        translateY = Math.min(maxY, Math.max(-maxY, translateY));
+    }
+    function updateTransform() {
+        panContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
+    function centerMap() {
+        const imgRect = mapImage.getBoundingClientRect();
+        if (imgRect.width === 0) return;
+        scale = 1;
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
+    }
+    function zoomAt(clientX, clientY, delta) {
+        const oldScale = scale;
+        let newScale = scale * (delta > 0 ? 1.1 : 0.9);
+        newScale = Math.min(4, Math.max(0.8, newScale));
+        if (newScale === scale) return;
+        const rect = mapContainer.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        const beforeX = (x - translateX) / oldScale;
+        const beforeY = (y - translateY) / oldScale;
+        scale = newScale;
+        translateX = x - beforeX * scale;
+        translateY = y - beforeY * scale;
+        clampTranslate();
+        updateTransform();
+    }
+    function onMouseDown(e) {
+        isDragging = true;
+        startX = e.clientX - translateX;
+        startY = e.clientY - translateY;
+        mapContainer.style.cursor = 'grabbing';
+        e.preventDefault();
+    }
+    function onMouseMove(e) {
+        if (!isDragging) return;
+        translateX = e.clientX - startX;
+        translateY = e.clientY - startY;
+        clampTranslate();
+        updateTransform();
+    }
+    function onMouseUp() {
+        isDragging = false;
+        mapContainer.style.cursor = 'grab';
+    }
+    function onWheel(e) {
+        e.preventDefault();
+        const rect = mapContainer.getBoundingClientRect();
+        zoomAt(e.clientX, e.clientY, e.deltaY > 0 ? -1 : 1);
+    }
+    mapContainer.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+    mapContainer.addEventListener('wheel', onWheel, { passive: false });
+    mapImage.addEventListener('load', centerMap);
+    centerMap();
+    const zoomIn = document.getElementById('zoomInBtn');
+    const zoomOut = document.getElementById('zoomOutBtn');
+    if (zoomIn) {
+        zoomIn.addEventListener('click', () => {
+            const rect = mapContainer.getBoundingClientRect();
+            zoomAt(rect.left + rect.width/2, rect.top + rect.height/2, 1);
+        });
+    }
+    if (zoomOut) {
+        zoomOut.addEventListener('click', () => {
+            const rect = mapContainer.getBoundingClientRect();
+            zoomAt(rect.left + rect.width/2, rect.top + rect.height/2, -1);
+        });
+    }
+    function showMarkerAt(clientX, clientY) {
+        const rect = mapContainer.getBoundingClientRect();
+        const xPercent = ((clientX - rect.left - translateX) / scale) / mapImage.clientWidth * 100;
+        const yPercent = ((clientY - rect.top - translateY) / scale) / mapImage.clientHeight * 100;
+        if (xPercent < 0 || xPercent > 100 || yPercent < 0 || yPercent > 100) return;
+        if (currentMarker) currentMarker.remove();
+        const marker = document.createElement('div');
+        marker.className = 'map-marker';
+        marker.style.left = `${xPercent}%`;
+        marker.style.top = `${yPercent}%`;
+        markersContainer.appendChild(marker);
+        currentMarker = marker;
+        const ripple = document.createElement('div');
+        ripple.className = 'map-marker-ripple';
+        ripple.style.left = `${xPercent}%`;
+        ripple.style.top = `${yPercent}%`;
+        markersContainer.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+        const tooltip = document.createElement('div');
+        tooltip.className = 'map-tooltip';
+        tooltip.innerText = `Метка: ${Math.round(xPercent)}%, ${Math.round(yPercent)}%`;
+        document.body.appendChild(tooltip);
+        const markerRect = marker.getBoundingClientRect();
+        tooltip.style.left = markerRect.left + markerRect.width/2 - tooltip.offsetWidth/2 + 'px';
+        tooltip.style.top = markerRect.top - 35 + 'px';
+        setTimeout(() => {
+            tooltip.style.opacity = '0';
+            setTimeout(() => tooltip.remove(), 300);
+        }, 500);
+    }
+    mapContainer.addEventListener('click', (e) => {
+        if (isDragging) return;
+        const rect = mapContainer.getBoundingClientRect();
+        const clickX = e.clientX;
+        const clickY = e.clientY;
+        if (clickX >= rect.left && clickX <= rect.right && clickY >= rect.top && clickY <= rect.bottom) {
+            showMarkerAt(clickX, clickY);
+        }
+    });
+})();

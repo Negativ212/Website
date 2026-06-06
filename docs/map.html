@@ -46,10 +46,17 @@
                 <div class="section-header">
                     <h2>Карта мира</h2>
                     <div class="section-line"></div>
-                    <p>Основные локации вселенной «Убить Некроманта»</p>
+                    <p>Кликните в любую точку карты — появится метка с координатами. Приближайте и перетаскивайте.</p>
                 </div>
-                <div class="map-image-container">
-                        <img src="https://cdn.jsdelivr.net/gh/Negativ212/Website/image/map.png" alt="Карта мира"> 
+                <div id="interactiveMap" class="map-interactive">
+                    <div class="map-pan-content" id="panContent">
+                        <img class="map-image" id="mapImage" src="https://cdn.jsdelivr.net/gh/Negativ212/Website/image/Map.png" alt="Карта мира Междугорье" draggable="false">
+                        <div class="map-markers" id="mapMarkers"></div>
+                    </div>
+                    <div class="map-controls">
+                        <button class="map-zoom-btn" id="zoomInBtn">+</button>
+                        <button class="map-zoom-btn" id="zoomOutBtn">−</button>
+                    </div>
                 </div>
             </div>
         </section>
