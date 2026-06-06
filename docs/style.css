@@ -391,6 +391,10 @@ body.theme-blue .hero-overlay {
     flex: 1;
     text-align: center;
 }
+.world-map-square {
+    width: 100%;
+    height: 250px;
+}
 .world-map .white-square {
     border-radius: 20px;
 }
@@ -643,7 +647,6 @@ footer {
     color: var(--text-secondary);
 }
 
-/* Modal base styles */
 .modal {
     display: none;
     position: fixed;
@@ -674,7 +677,6 @@ footer {
     color: var(--accent);
 }
 
-/* Стили для модального окна темы форума — панель ввода всегда снизу внутри окна */
 #topicModal .modal-content {
     display: flex;
     flex-direction: column;
@@ -889,4 +891,148 @@ body.theme-blue .right-header h3,
 body.theme-blue .footer-col h3,
 body.theme-blue .footer-col h4 {
     color: #a8ffd6;
+}
+
+/* ===== ВЫНЕСЕННЫЕ КЛАССЫ (вместо inline-стилей) ===== */
+.section-top-padding {
+    padding-top: 120px;
+}
+.map-image-container {
+    margin-bottom: 40px;
+    text-align: center;
+}
+.white-square.map-square {
+    width: 100%;
+    height: 400px;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.author-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+}
+.author-photo-wrapper {
+    flex: 1;
+    text-align: center;
+}
+.author-photo-wrapper .white-square {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.author-bio-wrapper {
+    flex: 2;
+}
+.author-bio-wrapper .social-links {
+    margin-top: 20px;
+}
+.quiz-custom-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--bg-secondary);
+    border-radius: 32px;
+    padding: 30px;
+    border: 1px solid var(--border-card);
+}
+.quiz-question {
+    margin-bottom: 25px;
+}
+.quiz-question label {
+    font-weight: 700;
+}
+.quiz-question select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+}
+.quiz-submit-btn {
+    width: 100%;
+}
+.quiz-result {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 20px;
+    background: var(--bg-card);
+    display: none;
+}
+.topic-modal-content {
+    max-width: 700px;
+}
+.topic-messages-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 20px 0;
+}
+.add-message-form textarea {
+    width: 100%;
+    padding: 10px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-card);
+    border-radius: 8px;
+}
+.add-message-form button {
+    margin-top: 10px;
+}
+.add-to-gallery {
+    margin-top: 40px;
+    text-align: center;
+}
+.add-to-gallery h3 {
+    margin-bottom: 16px;
+}
+.add-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+.add-form input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-card);
+    border-radius: 8px;
+}
+.add-topic {
+    margin-top: 30px;
+    text-align: center;
+}
+.add-topic h3 {
+    margin-bottom: 16px;
+}
+.add-topic .add-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+.add-topic .add-form input:first-child {
+    width: 250px;
+}
+.add-topic .add-form input:nth-child(2) {
+    width: 150px;
+}
+.text-center {
+    text-align: center;
+}
+.mt-20 {
+    margin-top: 20px;
+}
+.show-details-btn {
+    margin-top: 20px;
+}
+.btn-reset-default {
+    background: #aa2e2e;
 }
