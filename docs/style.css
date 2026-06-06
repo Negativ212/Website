@@ -382,11 +382,6 @@ body.theme-blue .hero-overlay {
     margin-bottom: 20px;
     font-size: 1.05rem;
 }
-.read-more {
-    color: #ff8c8c;
-    font-weight: 600;
-    border-bottom: 1px dashed;
-}
 .world-map {
     flex: 1;
     text-align: center;
@@ -872,8 +867,7 @@ footer {
 body.theme-light .news-date {
     color: #b33;
 }
-body.theme-light #charName,
-body.theme-light .read-more {
+body.theme-light #charName {
     color: #c0392b;
 }
 body.theme-light .right-header h3,
@@ -883,7 +877,6 @@ body.theme-light .footer-col h4 {
 }
 
 body.theme-blue .news-date,
-body.theme-blue .read-more,
 body.theme-blue #charName {
     color: #a8ffd6;
 }
