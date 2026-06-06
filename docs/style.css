@@ -395,7 +395,7 @@ body.theme-blue .hero-overlay {
     width: 100%;
     height: 250px;
 }
-.world-map .white-square {
+.world-map {
     border-radius: 20px;
 }
 
@@ -892,24 +892,19 @@ body.theme-blue .footer-col h3,
 body.theme-blue .footer-col h4 {
     color: #a8ffd6;
 }
-
-/* ===== ВЫНЕСЕННЫЕ КЛАССЫ (вместо inline-стилей) ===== */
 .section-top-padding {
     padding-top: 120px;
 }
 .map-image-container {
-    margin-bottom: 40px;
-    text-align: center;
-}
-.white-square.map-square {
     width: 100%;
-    height: 400px;
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 100%; 
 }
+.map-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .author-layout {
     display: flex;
     flex-wrap: wrap;
