@@ -1150,3 +1150,45 @@ body.theme-blue .footer-col h4 {
     color: white;
     transform: scale(1.05);
 }
+.hero-content h1 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.hero-buy-link {
+    display: inline-flex;
+    transition: transform 0.2s;
+}
+
+.hero-buy-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.hero-buy-link:hover .hero-buy-icon {
+    transform: scale(1.15);
+    box-shadow: 0 0 15px var(--accent);
+    filter: brightness(1.1);
+}
+
+.hero-buy-link:active .hero-buy-icon {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .hero-buy-icon {
+        width: 36px;
+        height: 36px;
+    }
+    .hero-content h1 {
+        gap: 12px;
+    }
+}

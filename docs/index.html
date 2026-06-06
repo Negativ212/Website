@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+            }
+        }
+    </script>
 </head>
 <body>
     <nav class="main-nav" id="mainNav">
@@ -46,8 +53,13 @@
     <header class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>Убить Некроманта</h1>
-            <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h1>
+                Убить Некроманта
+                <a href="https://www.litres.ru/book/maks-dalin/ubit-nekromanta-66732714/" target="_blank" class="hero-buy-link" title="Купить книгу на Литрес">
+                    <img src="https://img.icons8.com/fluency/48/New1.jpg" alt="Купить книгу" class="hero-buy-icon">
+                </a>
+            </h1>
+            <p class="tagline">Мемуары Тёмного Владыки</p>
             <div class="hero-buttons">
                 <a href="#news" class="btn btn-primary">Читать новости</a>
                 <a href="#world" class="btn btn-secondary">Погрузиться в мир</a>
@@ -64,7 +76,7 @@
                 <div class="section-header">
                     <h2>Последние новости</h2>
                     <div class="section-line"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p>Актуальные события из мира Междугорья</p>
                 </div>
                 <div class="news-grid" id="newsGrid"></div>
                 <div class="text-center">
@@ -86,8 +98,8 @@
                         <p><em>«Делай только то, что считаешь нужным, и так, как считаешь нужным. Потому что человек погибает – телом или душой, не важно, – когда начинает врать другим и себе»</em> — с этой философией Дольф ведет свои мёртвые легионы в бой, заключает сделки с вампирами и безжалостно казнит врагов, оставаясь при этом, по мнению многих читателей, образцом силы духа и трагической жертвой обстоятельств.</p>
                     </div>
                     <div class="world-map">
-                        <div class="world-square">
-                             <img src="https://cdn.jsdelivr.net/gh/Negativ212/Website/image/world.jpg" alt="Иллюстрация мира Междугорье">
+                        <div class="white-square world-map-square">
+                            <img src="https://cdn.jsdelivr.net/gh/Negativ212/Website/image/New1.jpg" alt="Карта Междугорья" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
                         </div>
                     </div>
                 </div>
@@ -216,7 +228,7 @@
             </div>
         </div>
     </div>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
