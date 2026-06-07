@@ -33,14 +33,32 @@ body.theme-blue {
     --bg-secondary: #112240;
     --bg-card: #0a2a3a;
     --bg-header: rgba(10, 25, 47, 0.95);
-    --text-primary: #ccd6f6;
-    --text-secondary: #BFC5D6;
+    --text-primary: #e6f1ff;
+    --text-secondary: #a8c0e0;
     --accent: #64ffda;
     --accent-hover: #45e0b5;
     --border: rgba(100, 255, 218, 0.1);
     --border-card: #1d3e53;
     --hero-bg: #051424;
     --footer-bg: #020c1a;
+}
+
+body.theme-blue .btn-primary {
+    color: #000000;
+}
+
+body.theme-blue .thumbnail-item.active {
+    background: var(--accent);
+    color: #000000;
+}
+
+body.theme-blue .thumbnail-item.active .thumbnail-info span {
+    color: #000000;
+}
+
+body.theme-blue .btn-outline:hover {
+    background: var(--accent);
+    color: #000000;
 }
 
 * {
@@ -251,7 +269,7 @@ body.theme-blue .hero-overlay {
 
 .btn-primary {
     background: var(--accent);
-    color: white;
+    color: #000000;
     box-shadow: 0 4px 15px rgba(170, 46, 46, 0.4);
 }
 
@@ -278,7 +296,7 @@ body.theme-blue .hero-overlay {
 
 .btn-outline:hover {
     background: var(--accent);
-    color: white;
+    color: #000000;
 }
 
 .scroll-down {
@@ -417,7 +435,7 @@ body.theme-blue .hero-overlay {
     margin: 0 auto;
 }
 
-.autor-square {
+.author-square {
     width: 280px;
     height: 280px;
     border-radius: 50%;
@@ -425,7 +443,7 @@ body.theme-blue .hero-overlay {
     overflow: hidden;
 }
 
-.autor-square img {
+.author-square img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -506,11 +524,11 @@ body.theme-blue .hero-overlay {
 
 .thumbnail-item.active {
     background: var(--accent);
-    color: white;
+    color: #000000;
 }
 
 .thumbnail-item.active .thumbnail-info span {
-    color: rgba(255, 255, 255, 0.8);
+    color: #000000;
 }
 
 .gallery-grid {
@@ -721,10 +739,12 @@ footer {
     border: 1px solid var(--border-card);
     border-radius: 8px;
 }
+
 .add-to-gallery .add-form {
     justify-content: flex-start;
     margin-left: 0;
 }
+
 .map-interactive {
     position: relative;
     width: 100%;
@@ -971,6 +991,7 @@ footer {
         max-width: 60px;
     }
 }
+
 .image-modal-content {
     max-width: 90vw;
     max-height: 90vh;
@@ -979,6 +1000,7 @@ footer {
     border: none;
     box-shadow: none;
 }
+
 .image-modal-content img {
     width: auto;
     max-width: 100%;
@@ -988,6 +1010,7 @@ footer {
     border-radius: 8px;
     box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
+
 #imageModal .modal-close {
     position: fixed;
     top: 20px;

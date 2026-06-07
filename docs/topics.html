@@ -9,6 +9,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('siteTheme');
+            let themeClass = '';
+
+            if (savedTheme === 'light') {
+                themeClass = 'theme-light';
+            } else if (savedTheme === 'blue') {
+                themeClass = 'theme-blue';
+            } else if (savedTheme === 'system' || !savedTheme) {
+                const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                themeClass = isDark ? 'theme-dark' : 'theme-light';
+            } else {
+                themeClass = 'theme-dark';
+            }
+
+            document.body.classList.add(themeClass);
+        })();
+    </script>
     <main>
         <section class="section section-top-padding">
             <div class="container">
