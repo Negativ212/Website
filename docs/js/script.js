@@ -20,7 +20,7 @@ function escapeHtml(str) {
 
 async function loadDefaultData() {
     try {
-        const response = await fetch('data/defaultData.json');
+        const response = await fetch('data/default-data.json');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         DEFAULT_DATA.galleryImages = data.galleryImages || [];
@@ -30,8 +30,9 @@ async function loadDefaultData() {
         STATIC_DATA.portraitImages = data.portraitImages || [];
         initApp();
     } catch (err) {
-        console.error('Ошибка загрузки defaultData.json:', err);
-        document.body.innerHTML = '<div style="padding:50px;text-align:center;color:red;">Ошибка загрузки данных. Проверьте defaultData.json.</div>';
+        console.error('Ошибка загрузки default-data.json:', err);
+        document.body.innerHTML = '<div style="padding:50px;text-align:center;color:red;">' +
+            'Ошибка загрузки данных. Проверьте default-data.json.</div>';
     }
 }
 
@@ -44,7 +45,8 @@ function saveGallery() { localStorage.setItem('fanartGallery', JSON.stringify(cu
 function saveForum() { localStorage.setItem('forumTopics', JSON.stringify(currentForumTopics)); }
 
 function resetToDefault() {
-    if (confirm('Сбросить все данные к исходному состоянию? Это удалит все добавленные картинки и темы.')) {
+    if (confirm('Сбросить все данные к исходному состоянию? ' +
+                'Это удалит все добавленные картинки и темы.')) {
         currentGallery = [...DEFAULT_DATA.galleryImages];
         currentForumTopics = [...DEFAULT_DATA.forumTopics];
         saveGallery();
@@ -82,7 +84,8 @@ function renderGallery() {
     const container = document.getElementById('galleryGrid');
     if (!container) return;
     if (!currentGallery.length) {
-        container.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;">Пока нет изображений. Добавьте первое!</div>';
+        container.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;">' +
+            'Пока нет изображений. Добавьте первое!</div>';
         return;
     }
     container.innerHTML = currentGallery.map(url => `
@@ -90,7 +93,7 @@ function renderGallery() {
             <img src="${escapeHtml(url)}" alt="Фанарт" loading="lazy">
         </div>
     `).join('');
-    
+
     document.querySelectorAll('.gallery-item').forEach(item => {
         item.addEventListener('click', (e) => {
             const imgUrl = item.dataset.imgUrl;
@@ -109,13 +112,16 @@ function renderForum(limit = Infinity, containerId = 'forumTopics') {
     if (!container) return;
     const topics = limit === Infinity ? currentForumTopics : currentForumTopics.slice(0, limit);
     if (!topics.length) {
-        container.innerHTML = '<div style="text-align:center;padding:40px;">Пока нет тем. Создайте первую!</div>';
+        container.innerHTML = '<div style="text-align:center;padding:40px;">' +
+            'Пока нет тем. Создайте первую!</div>';
         return;
     }
     container.innerHTML = topics.map(topic => `
         <div class="forum-topic" data-topic-id="${topic.id}">
             <div class="topic-title"><a href="#" class="topic-link">${escapeHtml(topic.title)}</a></div>
-            <div class="topic-meta">${escapeHtml(topic.author)} | Ответов: ${topic.messages?.length || 0} | ${escapeHtml(topic.lastPost)}</div>
+            <div class="topic-meta">${escapeHtml(topic.author)} | Ответов: ${topic.messages?.length || 0} |
+                ${escapeHtml(topic.lastPost)}
+            </div>
         </div>
     `).join('');
     container.querySelectorAll('.forum-topic .topic-link').forEach(link => {
@@ -154,8 +160,10 @@ function renderTopicMessages(topicId) {
         return;
     }
     container.innerHTML = topic.messages.map(msg => `
-        <div style="background:var(--bg-card);border-radius:12px;padding:12px;margin-bottom:12px;border-left:3px solid var(--accent);">
-            <strong>${escapeHtml(msg.author)}</strong> <span style="font-size:0.8rem;">${escapeHtml(msg.date)}</span>
+        <div style="background:var(--bg-card);border-radius:12px;padding:12px;margin-bottom:12px;
+                    border-left:3px solid var(--accent);">
+            <strong>${escapeHtml(msg.author)}</strong>
+            <span style="font-size:0.8rem;">${escapeHtml(msg.date)}</span>
             <p style="margin-top:8px;">${escapeHtml(msg.text)}</p>
         </div>
     `).join('');
@@ -191,7 +199,9 @@ function addForumTopic(title, author) {
     saveForum();
     refreshForumDisplay();
     document.getElementById('newTopicTitle').value = '';
-    if (document.getElementById('newTopicAuthor')) document.getElementById('newTopicAuthor').value = '';
+    if (document.getElementById('newTopicAuthor')) {
+        document.getElementById('newTopicAuthor').value = '';
+    }
 }
 
 function addGalleryImage(url) {
@@ -214,7 +224,8 @@ function showModal(title, content) {
 function applyTheme(theme) {
     const body = document.body;
     if (theme === 'system') {
-        body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'theme-dark' : 'theme-light';
+        body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ?
+            'theme-dark' : 'theme-light';
     } else {
         body.className = `theme-${theme}`;
     }
@@ -252,8 +263,12 @@ function renderThumbnails() {
     if (!container) return;
     container.innerHTML = STATIC_DATA.charactersData.map((char, idx) => `
         <div class="thumbnail-item" data-index="${idx}">
-            <img class="thumbnail-avatar" src="${STATIC_DATA.portraitImages[idx]}" alt="${escapeHtml(char.name)}">
-            <div class="thumbnail-info"><strong>${escapeHtml(char.name)}</strong><span>${escapeHtml(char.role)}</span></div>
+            <img class="thumbnail-avatar" src="${STATIC_DATA.portraitImages[idx]}"
+                 alt="${escapeHtml(char.name)}">
+            <div class="thumbnail-info">
+                <strong>${escapeHtml(char.name)}</strong>
+                <span>${escapeHtml(char.role)}</span>
+            </div>
         </div>
     `).join('');
     document.querySelectorAll('.thumbnail-item').forEach(item => {
@@ -291,7 +306,9 @@ function loadHeaderFooter() {
             initTheme();
             const toggle = document.getElementById('mobileToggle');
             const navLinks = document.getElementById('navLinks');
-            if (toggle) toggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+            if (toggle) {
+                toggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+            }
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
@@ -320,22 +337,42 @@ function initApp() {
         renderThumbnails();
         initDetailsButton();
     }
-    document.getElementById('addImageBtn')?.addEventListener('click', () => addGalleryImage(document.getElementById('newImageUrl').value));
-    document.getElementById('addTopicBtn')?.addEventListener('click', () => addForumTopic(
-        document.getElementById('newTopicTitle')?.value,
-        document.getElementById('newTopicAuthor')?.value
-    ));
+    document.getElementById('addImageBtn')?.addEventListener('click', () =>
+        addGalleryImage(document.getElementById('newImageUrl').value)
+    );
+    document.getElementById('addTopicBtn')?.addEventListener('click', () =>
+        addForumTopic(
+            document.getElementById('newTopicTitle')?.value,
+            document.getElementById('newTopicAuthor')?.value
+        )
+    );
     document.getElementById('resetToDefaultBtn')?.addEventListener('click', resetToDefault);
-    document.getElementById('sendMessageBtn')?.addEventListener('click', () => addMessageToTopic(currentTopicId, 'Пользователь', document.getElementById('newMessageText')?.value));
-    document.getElementById('topicModalClose')?.addEventListener('click', () => document.getElementById('topicModal').style.display = 'none');
-    window.onclick = (e) => { if (e.target === document.getElementById('topicModal')) document.getElementById('topicModal').style.display = 'none'; };
+    document.getElementById('sendMessageBtn')?.addEventListener('click', () =>
+        addMessageToTopic(
+            currentTopicId,
+            'Пользователь',
+            document.getElementById('newMessageText')?.value
+        )
+    );
+    document.getElementById('topicModalClose')?.addEventListener('click', () =>
+        document.getElementById('topicModal').style.display = 'none'
+    );
+    window.onclick = (e) => {
+        if (e.target === document.getElementById('topicModal')) {
+            document.getElementById('topicModal').style.display = 'none';
+        }
+    };
     document.getElementById('loadMoreNews')?.addEventListener('click', () => {
         loadedNewsCount = Math.min(loadedNewsCount + 2, STATIC_DATA.newsData.length);
         renderNews(loadedNewsCount);
-        if (loadedNewsCount >= STATIC_DATA.newsData.length) document.getElementById('loadMoreNews').style.display = 'none';
+        if (loadedNewsCount >= STATIC_DATA.newsData.length) {
+            document.getElementById('loadMoreNews').style.display = 'none';
+        }
     });
-    document.querySelector('.scroll-down')?.addEventListener('click', () => document.getElementById('news')?.scrollIntoView({ behavior: 'smooth' }));
-    
+    document.querySelector('.scroll-down')?.addEventListener('click', () =>
+        document.getElementById('news')?.scrollIntoView({ behavior: 'smooth' })
+    );
+
     const imageModal = document.getElementById('imageModal');
     const imageModalClose = document.getElementById('imageModalClose');
     if (imageModalClose) {
@@ -350,7 +387,7 @@ function initApp() {
             }
         });
     }
-    
+
     const fileInput = document.getElementById('uploadImageFile');
     if (fileInput) {
         fileInput.addEventListener('change', function(e) {
@@ -380,12 +417,23 @@ loadDefaultData();
 if (document.getElementById('quizForm')) {
     document.getElementById('quizForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        let total = [...this.querySelectorAll('select')].reduce((sum, sel) => sum + parseInt(sel.value), 0);
+        let total = [...this.querySelectorAll('select')].reduce(
+            (sum, sel) => sum + parseInt(sel.value), 0
+        );
         let char = '', desc = '';
-        if (total <= 6) { char = 'Айден, Охотник на нежить'; desc = 'Ты смел и решителен.'; }
-        else if (total <= 10) { char = 'Лоремиус, Магистр Ордена'; desc = 'Ты мудр и рассудителен.'; }
-        else if (total <= 14) { char = 'Моргана, Призрачная леди'; desc = 'Ты загадочен(на) и гибок.'; }
-        else { char = 'Велиар, Тёмный лорд'; desc = 'Ты жаждешь власти.'; }
+        if (total <= 6) {
+            char = 'Айден, Охотник на нежить';
+            desc = 'Ты смел и решителен.';
+        } else if (total <= 10) {
+            char = 'Лоремиус, Магистр Ордена';
+            desc = 'Ты мудр и рассудителен.';
+        } else if (total <= 14) {
+            char = 'Моргана, Призрачная леди';
+            desc = 'Ты загадочен(на) и гибок.';
+        } else {
+            char = 'Велиар, Тёмный лорд';
+            desc = 'Ты жаждешь власти.';
+        }
         document.getElementById('resultCharacter').innerText = char;
         document.getElementById('resultDesc').innerText = desc;
         document.getElementById('quizResult').style.display = 'block';
@@ -412,7 +460,8 @@ class QuoteManager {
             if (!res.ok) throw new Error();
             const data = await res.json();
             let quotes = data.quotes || (Array.isArray(data) ? data : []);
-            this.localQuotesCache = quotes.map(q => typeof q === 'string' ? q : q.content || q.text || '').filter(t => t);
+            this.localQuotesCache = quotes.map(q => typeof q === 'string' ? q : q.content || q.text || '')
+                .filter(t => t);
             if (!this.localQuotesCache.length) throw new Error();
             return this.localQuotesCache;
         } catch {
@@ -458,7 +507,8 @@ if (document.getElementById('interactiveMap')) {
         const panContent = document.getElementById('panContent');
         const mapImage = document.getElementById('mapImage');
         const markers = document.getElementById('mapMarkers');
-        let scale = 1, translateX = 0, translateY = 0, dragging = false, startX, startY;
+        let scale = 1, translateX = 0, translateY = 0;
+        let dragging = false, wasDragged = false, startX, startY;
         let currentMarker = null;
 
         function clamp() {
@@ -469,7 +519,9 @@ if (document.getElementById('interactiveMap')) {
             translateX = Math.min(maxX, Math.max(-maxX, translateX));
             translateY = Math.min(maxY, Math.max(-maxY, translateY));
         }
-        function update() { panContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`; }
+        function update() {
+            panContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+        }
         function zoomAt(clientX, clientY, delta) {
             const oldScale = scale;
             let newScale = scale * (delta > 0 ? 1.1 : 0.9);
@@ -484,46 +536,90 @@ if (document.getElementById('interactiveMap')) {
             clamp();
             update();
         }
-        container.addEventListener('mousedown', e => { dragging = true; startX = e.clientX - translateX; startY = e.clientY - translateY; container.style.cursor = 'grabbing'; e.preventDefault(); });
-        window.addEventListener('mousemove', e => { if (dragging) { translateX = e.clientX - startX; translateY = e.clientY - startY; clamp(); update(); } });
-        window.addEventListener('mouseup', () => { dragging = false; container.style.cursor = 'grab'; });
-        container.addEventListener('wheel', e => { e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY > 0 ? -1 : 1); }, { passive: false });
-        mapImage.addEventListener('load', () => { scale = 1; translateX = 0; translateY = 0; update(); });
-        document.getElementById('zoomInBtn')?.addEventListener('click', () => { const rect = container.getBoundingClientRect(); zoomAt(rect.left + rect.width/2, rect.top + rect.height/2, 1); });
-        document.getElementById('zoomOutBtn')?.addEventListener('click', () => { const rect = container.getBoundingClientRect(); zoomAt(rect.left + rect.width/2, rect.top + rect.height/2, -1); });
+
+        container.addEventListener('mousedown', e => {
+            dragging = true; wasDragged = false;
+            startX = e.clientX - translateX; startY = e.clientY - translateY;
+            container.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
+        window.addEventListener('mousemove', e => {
+            if (!dragging) return;
+            wasDragged = true;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            clamp(); update();
+        });
+        window.addEventListener('mouseup', () => {
+            dragging = false;
+            container.style.cursor = 'grab';
+        });
+
+        container.addEventListener('touchstart', e => {
+            dragging = true; wasDragged = false;
+            startX = e.touches[0].clientX - translateX;
+            startY = e.touches[0].clientY - translateY;
+        });
+        container.addEventListener('touchmove', e => {
+            if (!dragging) return;
+            e.preventDefault();
+            wasDragged = true;
+            translateX = e.touches[0].clientX - startX;
+            translateY = e.touches[0].clientY - startY;
+            clamp(); update();
+        }, { passive: false });
+        container.addEventListener('touchend', () => { dragging = false; });
+
+        container.addEventListener('wheel', e => {
+            e.preventDefault();
+            zoomAt(e.clientX, e.clientY, e.deltaY > 0 ? -1 : 1);
+        }, { passive: false });
+
+        mapImage.addEventListener('load', () => {
+            scale = 1; translateX = 0; translateY = 0;
+            update();
+        });
+        document.getElementById('zoomInBtn')?.addEventListener('click', () => {
+            const rect = container.getBoundingClientRect();
+            zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, 1);
+        });
+        document.getElementById('zoomOutBtn')?.addEventListener('click', () => {
+            const rect = container.getBoundingClientRect();
+            zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, -1);
+        });
+
         container.addEventListener('click', (e) => {
-            if (dragging) return;
+            if (wasDragged) { wasDragged = false; return; }
             const rect = container.getBoundingClientRect();
             const x = e.clientX, y = e.clientY;
-            if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-                const xPercent = ((x - rect.left - translateX) / scale) / mapImage.clientWidth * 100;
-                const yPercent = ((y - rect.top - translateY) / scale) / mapImage.clientHeight * 100;
-                if (xPercent < 0 || xPercent > 100 || yPercent < 0 || yPercent > 100) return;
-                if (currentMarker) {
-                    currentMarker.remove();
-                    currentMarker = null;
-                }
-                const marker = document.createElement('div');
-                marker.className = 'map-marker';
-                marker.style.left = `${xPercent}%`;
-                marker.style.top = `${yPercent}%`;
-                markers.appendChild(marker);
-                currentMarker = marker;
-                const ripple = document.createElement('div');
-                ripple.className = 'map-marker-ripple';
-                ripple.style.left = `${xPercent}%`;
-                ripple.style.top = `${yPercent}%`;
-                markers.appendChild(ripple);
-                setTimeout(() => ripple.remove(), 600);
-                const tip = document.createElement('div');
-                tip.className = 'map-tooltip';
-                tip.innerText = `Метка: ${Math.round(xPercent)}%, ${Math.round(yPercent)}%`;
-                document.body.appendChild(tip);
-                const mr = marker.getBoundingClientRect();
-                tip.style.left = mr.left + mr.width/2 - tip.offsetWidth/2 + 'px';
-                tip.style.top = mr.top - 35 + 'px';
-                setTimeout(() => { tip.style.opacity = '0'; setTimeout(() => tip.remove(), 300); }, 500);
-            }
+            if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) return;
+            const xPercent = ((x - rect.left - translateX) / scale) / mapImage.clientWidth * 100;
+            const yPercent = ((y - rect.top - translateY) / scale) / mapImage.clientHeight * 100;
+            if (xPercent < 0 || xPercent > 100 || yPercent < 0 || yPercent > 100) return;
+            if (currentMarker) { currentMarker.remove(); currentMarker = null; }
+            const marker = document.createElement('div');
+            marker.className = 'map-marker';
+            marker.style.left = `${xPercent}%`;
+            marker.style.top = `${yPercent}%`;
+            markers.appendChild(marker);
+            currentMarker = marker;
+            const ripple = document.createElement('div');
+            ripple.className = 'map-marker-ripple';
+            ripple.style.left = `${xPercent}%`;
+            ripple.style.top = `${yPercent}%`;
+            markers.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+            const tip = document.createElement('div');
+            tip.className = 'map-tooltip';
+            tip.innerText = `Метка: ${Math.round(xPercent)}%, ${Math.round(yPercent)}%`;
+            document.body.appendChild(tip);
+            const mr = marker.getBoundingClientRect();
+            tip.style.left = mr.left + mr.width / 2 - tip.offsetWidth / 2 + 'px';
+            tip.style.top = mr.top - 35 + 'px';
+            setTimeout(() => {
+                tip.style.opacity = '0';
+                setTimeout(() => tip.remove(), 300);
+            }, 500);
         });
     })();
 }
