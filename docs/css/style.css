@@ -540,10 +540,6 @@ body.theme-blue .hero-overlay {
     border-bottom: 1px solid var(--border);
 }
 
-.forum-topic:hover {
-    background: var(--bg-card);
-}
-
 .topic-title a {
     font-weight: 600;
     color: var(--text-primary);
