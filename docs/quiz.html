@@ -4,47 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тест: какой ты персонаж? | Убить Некроманта</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="logo"><a href="index.html">УБИТЬ<br><span>НЕКРОМАНТА</span></a></div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html#news">Новости</a></li>
-                <li><a href="index.html#world">Мир книги</a></li>
-                <li><a href="index.html#characters">Персонажи</a></li>
-                <li><a href="index.html#gallery">Галерея</a></li>
-                <li><a href="index.html#forum">Форум</a></li>
-                <li><a href="about.html">Об авторе</a></li>
-                <li><a href="map.html">Карта мира</a></li>
-                <li><a href="quiz.html">Тест</a></li>
-                <li><a href="quotes-api.html">Цитаты API</a></li>
-                <li><a href="topics.html">Все темы</a></li>
-            </ul>
-            <div class="nav-right">
-                <div class="theme-switcher">
-                    <label for="themeSelect" class="visually-hidden">Выбор темы</label>
-                    <select id="themeSelect">
-                        <option value="system">Системная</option>
-                        <option value="dark">Тёмная</option>
-                        <option value="light">Светлая</option>
-                        <option value="blue">Синяя</option>
-                    </select>
-                </div>
-                <div class="nav-search"><i class="fas fa-search"></i></div>
-            </div>
-            <div class="mobile-nav-toggle" id="mobileToggle"><i class="fas fa-bars"></i></div>
-        </div>
-    </nav>
-
     <main>
         <section class="section section-top-padding">
             <div class="container">
                 <div class="section-header">
-                    <h2>Тест: Какой ты персонаж?</h2>
+                    <h1>Тест: Какой ты персонаж?</h1>
                     <div class="section-line"></div>
                     <p>Ответь на вопросы и узнай, кто ты из вселенной «Убить Некроманта»</p>
                 </div>
@@ -53,6 +22,7 @@
                         <div class="quiz-question">
                             <label>1. Твой любимый вид оружия?</label>
                             <select name="q1" required>
+                                <option disabled selected value="">Выберите вариант</option>
                                 <option value="1">Меч и щит</option>
                                 <option value="2">Магический посох</option>
                                 <option value="3">Кинжалы и скрытность</option>
@@ -62,6 +32,7 @@
                         <div class="quiz-question">
                             <label>2. Что для тебя важнее всего?</label>
                             <select name="q2" required>
+                                <option disabled selected value="">Выберите вариант</option>
                                 <option value="1">Защита слабых</option>
                                 <option value="2">Знания и мудрость</option>
                                 <option value="3">Свобода и приключения</option>
@@ -71,6 +42,7 @@
                         <div class="quiz-question">
                             <label>3. Враг повержен. Твои действия?</label>
                             <select name="q3" required>
+                                <option disabled selected value="">Выберите вариант</option>
                                 <option value="1">Устрою пир в честь победы</option>
                                 <option value="2">Изучу его артефакты</option>
                                 <option value="3">Исчезну в тени</option>
@@ -80,6 +52,7 @@
                         <div class="quiz-question">
                             <label>4. Твой идеальный спутник?</label>
                             <select name="q4" required>
+                                <option disabled selected value="">Выберите вариант</option>
                                 <option value="1">Верный рыцарь</option>
                                 <option value="2">Мудрый маг</option>
                                 <option value="3">Ловкий вор</option>
@@ -89,47 +62,13 @@
                         <button type="submit" class="btn btn-primary quiz-submit-btn">Узнать результат</button>
                     </form>
                     <div id="quizResult" class="quiz-result">
-                        <h3>Твой персонаж: <span id="resultCharacter"></span></h3>
+                        <h2>Твой персонаж: <span id="resultCharacter"></span></h2>
                         <p id="resultDesc"></p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <h3>Убить Некроманта</h3>
-                <p>Фан-сайт, посвящённый культовой вселенной. Присоединяйтесь к сообществу!</p>
-                <div class="social-links">
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
-                    <a href="#" aria-label="Reddit"><i class="fab fa-reddit-alien"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h3>Разделы</h3>
-                <ul>
-                    <li><a href="index.html#news">Новости</a></li>
-                    <li><a href="index.html#world">Мир книги</a></li>
-                    <li><a href="index.html#characters">Персонажи</a></li>
-                    <li><a href="index.html#gallery">Галерея</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Партнёры</h3>
-                <ul>
-                    <li><a href="#">Lorem Ipsum</a></li>
-                    <li><a href="#">Dolor Sit</a></li>
-                    <li><a href="#">Amet Consectetur</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Фан-сайт «Убить Некроманта» — некоммерческий проект</p>
-        </div>
-    </footer>
-    <script src="script.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>
